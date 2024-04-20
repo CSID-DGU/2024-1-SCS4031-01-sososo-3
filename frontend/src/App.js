@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
 
-function App() {
+import React from 'react';
+import './App.css';
+import EmployeeHeader from './pages/EmployeeHeader';
+import Approval from './pages/Approval';
+import TaskList from './pages/TaskList'
+import DateComponent from './pages/DateComponent'
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <EmployeeHeader />
+      <div className="rounded-rectangles-container">
+        <div className="rounded-rectangle-wrapper">
+          <Approval />
+        </div>
+        <div className="rounded-rectangle-wrapper">
+          <DateComponent />
+        </div>
+      </div>
+      <div className="task-list-container">
+        <TaskList />
+      </div>
     </div>
   );
 }
 
 export default App;
+
+
