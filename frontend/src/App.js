@@ -1,22 +1,19 @@
 // App.js
-
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MainPage from './pages/main/MainPage'; 
 import './App.css';
-import EmployeeHeader from './pages/EmployeeHeader';
-import TaskList from './pages/TaskList'
-import DateComponent from './pages/DateComponent'
 
 const App = () => {
   return (
-    <div className="app">
-      <EmployeeHeader />
-      <div className="rounded-rectangles-container">
-          <DateComponent />
+    <Router>
+      <div className="app">
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          {/* 나머지 라우팅 설정 */}
+        </Routes>
       </div>
-      <div className="task-list-container">
-        <TaskList />
-      </div>
-    </div>
+    </Router>
   );
 }
 
