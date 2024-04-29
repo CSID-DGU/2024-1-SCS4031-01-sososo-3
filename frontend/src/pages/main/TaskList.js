@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import TaskForm from './TaskForm'; // 업무 작성을 위한 미니페이지 컴포넌트
+import '../../App.css';
 
 const TaskList = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
