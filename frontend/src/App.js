@@ -20,6 +20,8 @@ const App = () => {
 
           <Route path="/director/3" element={<DivisionPage />} /> {/* 시스템영업본부 라우팅 추가*/}
           <Route path="/division/1" element={<TeamPage />} /> {/* 시스템영업1팀 라우팅 추가*/}
+          <Route path="/team/:id" element={<MainPage />} /> {/* 사원페이지 라우팅 추가*/}
+          
         </Routes>
 
       </div>
