@@ -17,7 +17,11 @@ const App = () => {
           <Route path="/team" element={<TeamPage />} /> {/* TeamPage 라우팅 추가 */}
           <Route path="/division" element={<DivisionPage />} /> {/* DivisionPage 라우팅 추가 */}
           <Route path="/director" element={<DirectorPage />} /> {/* DirectorPage 라우팅 추가 */}
+
+          <Route path="/director/3" element={<DivisionPage />} /> {/* 시스템영업본부 라우팅 추가*/}
+          <Route path="/division/1" element={<TeamPage />} /> {/* 시스템영업1팀 라우팅 추가*/}
         </Routes>
+
       </div>
     </Router>
   );
