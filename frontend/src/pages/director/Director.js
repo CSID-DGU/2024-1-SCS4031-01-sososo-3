@@ -5,10 +5,11 @@ import '../../App.css';
 const Director = () => {
     const fakedirectorMembers = [
         // 임시 DB
-        { id: 1, name: '경영지원본부', position: 'Division'},
-        { id: 2, name: 'SM사업본부', position: 'Division' },
-        { id: 3, name: '시스템사업본부', position: 'Division' },
-        { id: 4, name: '개발사업부', position: 'Division' }
+        { id:1, name:'대표이사', position: 'Director'},
+        { id: 2, name: '경영지원본부', position: 'Division'},
+        { id: 3, name: 'SM사업본부', position: 'Division' },
+        { id: 4, name: '시스템사업본부', position: 'Division' },
+        { id: 5, name: '개발사업부', position: 'Division' }
     ];
 
     // id를 기준으로 오름차순 정렬
