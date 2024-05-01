@@ -5,11 +5,12 @@ import '../../App.css';
 const Division = () => {
     const fakedivisionMembers = [
         // 임시 DB
-        { id: 1, name: '시스템영업1팀', position: 'Team'},
-        { id: 2, name: '시스템영업2팀', position: 'Team' },
-        { id: 3, name: '공공영업1팀', position: 'Team' },
-        { id: 4, name: '공공영업2팀', position: 'Team' },
-        { id: 5, name: '기술지원팀', position: 'Team' }
+        { id: 1, name: '시스템사업본부', position: 'Division'},
+        { id: 2, name: '시스템영업1팀', position: 'Team'},
+        { id: 3, name: '시스템영업2팀', position: 'Team' },
+        { id: 4, name: '공공영업1팀', position: 'Team' },
+        { id: 5, name: '공공영업2팀', position: 'Team' },
+        { id: 6, name: '기술지원팀', position: 'Team' }
     ];
 
     // id를 기준으로 오름차순 정렬
