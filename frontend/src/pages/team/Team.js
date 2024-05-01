@@ -4,7 +4,8 @@ import '../../App.css';
 
 const Team = () => {
     const fakeTeamMembers = [
-        { id: 1, name: '시스템영업팀', position: 'Team'},
+        // 임시 DB
+        { id: 1, name: '시스템영업1팀', position: 'Team'},
         { id: 2, name: '김미소', position: 'Developer' },
         { id: 3, name: '박소정', position: 'Designer' },
         { id: 4, name: '최소영', position: 'Project Manager' },
