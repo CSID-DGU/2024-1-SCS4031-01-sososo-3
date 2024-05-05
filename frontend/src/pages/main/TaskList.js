@@ -32,7 +32,6 @@ const TaskList = () => {
       <div className="button-container">
         <button className="add-button" onClick={openForm}>추가</button>
         <button className="delete-button" onClick={handleDeleteTask}>삭제</button>
-        <button className="request-button">결재요청</button>
       </div>
       {isFormOpen && (
         <div className="mini-page">
@@ -56,4 +55,3 @@ const TaskList = () => {
 
 
 export default TaskList;
-
