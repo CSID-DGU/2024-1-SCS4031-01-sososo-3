@@ -65,7 +65,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
 
   return (
     <div className="task-form">
-      <h2>업무 작성하기</h2>
+      <h2>업무 작성</h2>
       <form onSubmit={handleSubmit}>
         
           
@@ -113,7 +113,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
           </div>
 
         <div className="form-group">
-          <label>첨부파일</label>
+          <label>첨부</label>
           <input
             type="file"
             onChange={handleAttachmentChange}
