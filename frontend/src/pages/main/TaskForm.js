@@ -68,16 +68,18 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
       <h2>업무 작성하기</h2>
       <form onSubmit={handleSubmit}>
         
-          <label>제목</label>
+          
           <input
             type="text"
+            placeholder="제목을 입력하세요"
             value={taskTitle}
             onChange={handleTitleChange}
             required
           />
-
-          <label>설명</label>
+          
           <textarea
+            type="text"
+            placeholder="내용을 입력하세요"
             value={taskDescription}
             onChange={handleDescriptionChange}
             required
