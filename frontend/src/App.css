@@ -226,24 +226,24 @@ body {
   display: inline-block;
   margin-bottom: 15px;
   font-size: 16px;
-  
 }
 
 .task-form input,
 .task-form textarea,
 .task-form select {
-  width: calc(100% - 20px); /* 입력 필드의 너비를 설정합니다 */
+  width: calc(100% - 10px); /* 입력 필드의 너비를 설정합니다 */
   padding: 10px;
   border: 2px solid #000000;
   border-radius: 20px;
   box-sizing: border-box;
   margin-bottom: 15px;
   font-size: 16px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .form-group {
-  width: 300px;
-  display: inline-block;
+  width: 100px;
+  display: inline;
   align-items: center;
   flex-direction: column;
   margin-bottom: 15px;
@@ -251,12 +251,17 @@ body {
 
 .form-group label {
 margin-bottom: 5px;
+margin-right: 10px; /* 라벨과 입력 필드 사이의 간격 조정 */
+
+
 }
   
-.form-group input {
+.form-group input { 
+width: 200px;
 padding: 8px;
 border: 2px solid #000000;
 border-radius: 20px;
+margin-right: 24px;
 }
   
 /* Optional: Add hover effect */
@@ -271,18 +276,21 @@ border-color: #2B90D9;
 
 .form-group select {
   background-color: rgb(255, 255, 255); /* 배경색 설정 */
-  width: 282px; /* 칸 크기 조정 */
-  height: 43px;
+  width: 200px; /* 칸 크기 조정 */
+  height: 40px;
   padding: 10px; /* 내부 여백 설정 */
   border-radius: 100px;
+  margin-left: 15px;
+  margin-right: 20px;
 }
 
 
-.form-group input[type="file"] {
+.form-group input[type="file"] {  /*첨부파일*/
   background-color: #ffffff; /* 배경색 설정 */
+  margin-left: 15px;
 }
 
-.task-form button {
+.task-form button {  /*하단 취소, 저장 버튼*/
   padding: 12px 24px;
   background-color: #353866;
   color: white;
@@ -302,7 +310,7 @@ border-color: #2B90D9;
 }
 
 .task-form button:hover {
-  background-color: #353866;
+  background-color: #2B90D9;
 }
 
 /* 조직도 */
