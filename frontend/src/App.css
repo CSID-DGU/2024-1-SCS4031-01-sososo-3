@@ -188,6 +188,7 @@ body {
 .checkbox-container {
   margin-left: auto; /* 체크박스를 가장 오른쪽에 정렬 */
 }
+
 /* TaskForm.css */
 
 .task-form {
@@ -196,7 +197,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: white;
+  background-color: #FFF0F0;
   padding: 40px;
   border-radius: 8px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -207,14 +208,25 @@ body {
 
 .task-form h2 {
   margin-bottom: 30px;
+  border: 2px solid #000000; /* 테두리 설정 */
+  background-color: #2B90D9;
+  padding: 10px; /* 내부 여백 설정 */
   font-size: 24px;
-  color: #333;
+  color: #ffffff;
+  text-align: center; /* 가운데 정렬 */
+  border-radius: 20px;
 }
 
 .task-form label {
-  display: block;
+  border: 2px solid #ffffff; /* 테두리 설정 */
+  background-color: #92c7ed;
+  padding: 10px; /* 내부 여백 설정 */
+  border-radius: 20px;
+  color: #000000;
+  display: inline-block;
   margin-bottom: 15px;
   font-size: 16px;
+  
 }
 
 .task-form input,
@@ -222,11 +234,34 @@ body {
 .task-form select {
   width: calc(100% - 20px); /* 입력 필드의 너비를 설정합니다 */
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px solid #000000;
+  border-radius: 20px;
   box-sizing: border-box;
   margin-bottom: 15px;
   font-size: 16px;
+}
+
+.form-group {
+  width: 300px;
+  display: inline-block;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+margin-bottom: 5px;
+}
+  
+.form-group input {
+padding: 8px;
+border: 2px solid #000000;
+border-radius: 20px;
+}
+  
+/* Optional: Add hover effect */
+.form-group input:hover {
+border-color: #2B90D9;
 }
 
 .task-form textarea {
@@ -234,19 +269,40 @@ body {
   height: 100px; /* 텍스트 영역의 높이를 설정합니다 */
 }
 
+.form-group select {
+  background-color: rgb(255, 255, 255); /* 배경색 설정 */
+  width: 282px; /* 칸 크기 조정 */
+  height: 43px;
+  padding: 10px; /* 내부 여백 설정 */
+  border-radius: 100px;
+}
+
+
+.form-group input[type="file"] {
+  background-color: #ffffff; /* 배경색 설정 */
+}
+
 .task-form button {
   padding: 12px 24px;
-  background-color: #007bff;
+  background-color: #353866;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 16px;
+  margin-right: 10px;
+  border-radius: 20px;
+}
+
+.task-form button:last-child,
+.task-form button:nth-last-child(2) {
+  margin-right: 10px;
+  float: right; /* 버튼을 오른쪽으로 이동시킵니다 */
 }
 
 .task-form button:hover {
-  background-color: #0056b3;
+  background-color: #353866;
 }
 
 /* 조직도 */
