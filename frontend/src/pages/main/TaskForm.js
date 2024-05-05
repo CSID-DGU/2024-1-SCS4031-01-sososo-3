@@ -7,6 +7,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
   const [author, setAuthor] = useState(''); // 작성자 상태 변수 추가
   const [assignee, setAssignee] = useState(''); //담당자 상태 변수
   const [status, setStatus] = useState('예정');
+  const [attachment, setAttachment] = useState(null); // 파일 상태 추가
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -31,6 +32,12 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
     setStatus(e.target.value);
   };
 
+  // 파일 선택 시 이벤트 핸들러
+  const handleAttachmentChange = (e) => {
+    const file = e.target.files[0]; // 선택한 파일 가져오기
+   setAttachment(file); // 파일 상태 업데이트
+  };
+
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
   };
@@ -48,6 +55,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
       author: author, //작성자 정보 추가
       assignee: assignee,
       status: status,
+      attachment: attachment, // 파일 정보도 전달
       startDate: startDate,
       endDate: endDate
     };
@@ -101,6 +109,14 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             <option value="회의">회의</option>
           </select>
           </div>
+
+        <div className="form-group">
+          <label>첨부파일</label>
+          <input
+            type="file"
+            onChange={handleAttachmentChange}
+          />
+        </div>
 
         <div className="form-group">
           <label>시작일</label>
