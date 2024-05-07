@@ -313,7 +313,7 @@ border-color: #2B90D9;
   background-color: #2B90D9;
 }
 
-/* 조직도 */
+/* 조직도페이지 */
 .organization-container {
   margin-top: 50px;
   margin-left: 30px;
@@ -369,4 +369,85 @@ border-color: #2B90D9;
   text-decoration: none; /* 마우스 호버 시 밑줄 제거 */
   color: inherit; /* 마우스 호버 시 색상 상속 */
 }
+
+/* 조직도보기 모달 */
+.modal-background {
+  position: fixed;
+  top: calc(5% - 0px); /* 수직 중앙에서 아래로 50px 이동 */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  position: relative;
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px rgba(146, 145, 145, 0.5); /* 그림자 효과 */
+  max-width: 90%;
+}
+
+.modal-content button {
+  position: absolute;
+  top: -10px; /* x 버튼을 모달 내부 위에 위치시킴 */
+  right: -10px; /* x 버튼을 오른쪽에 위치시킴 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.company-organization {
+  flex-direction: column;
+  align-items: center;
+  text-align: center; 
+}
+
+.ceo { /* 대표이사와 본부 간격 */
+  margin-top: 30px;
+}
+.department-line {
+  border-top: 1px solid #ccc;
+  margin-top: 20px; /* 각 본부 사이의 간격 */
+}
+.department { /* 본부 간 */
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.departments {
+  display: flex;
+  justify-content: space-around;
+}
+.departments .department {
+  width: 150px;
+}
+
+.departments .department h3 {
+  margin-top: 5px;
+}
+
+.departments .department p {
+  margin-bottom: 5px;
+}
+
+.departments .department ul {
+  padding-left: 20px;
+}
+.ceo h3:hover {/* 대표이사에 마우스 호버 시 반응 */
+  cursor: pointer;
+  filter: brightness(90%);
+  color: rgb(89, 128, 212); 
+}
+.department h3:hover {/* 본부에 마우스 호버 시 반응 */
+  cursor: pointer;
+  filter: brightness(90%);
+  color: rgb(89, 128, 212);
+}
+
+
 
