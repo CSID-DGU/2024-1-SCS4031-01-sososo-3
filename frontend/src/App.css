@@ -154,7 +154,7 @@ body {
 
 .add-button,
 .delete-button,
-.request-button {
+.share-button {
   font-family: 'AppleGothic', sans-serif; 
   font-weight: bold; 
   margin-left: 15px; /* 버튼 간격 설정 */
@@ -448,6 +448,3 @@ border-color: #2B90D9;
   filter: brightness(90%);
   color: rgb(89, 128, 212);
 }
-
-
-
