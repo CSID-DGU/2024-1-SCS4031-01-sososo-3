@@ -44,6 +44,8 @@ const TaskList = () => {
       <div className="button-container">
         <button className="add-button" onClick={openForm}>추가</button>
         <button className="delete-button" onClick={() => handleDeleteTask()}>삭제</button>
+        {/* 공유 버튼 추가 */}
+        <button className="share-button">공유</button>
       </div>
       {isFormOpen && (
         <div className="mini-page">
