@@ -1,17 +1,11 @@
-// EmployeeHeader.js
-
-// EmployeeHeader.js
-
 import React from 'react';
-import { FaSignOutAlt } from 'react-icons/fa';
+import '../../App.css';
 
-const EmployeeHeader = () => {
+const DirectorHeader = () => {
+
   return (
     <div className="employee-header">
       <div className="left-buttons">
-        <button className="exit-button">
-          <FaSignOutAlt /> {/* 나가기 아이콘 */}
-        </button>
       </div>
       <div className="center-button">
         <button>조직도 보기</button>
@@ -24,5 +18,4 @@ const EmployeeHeader = () => {
   );
 }
 
-export default EmployeeHeader;
-
+export default DirectorHeader;
