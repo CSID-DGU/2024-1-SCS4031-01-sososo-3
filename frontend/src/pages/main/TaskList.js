@@ -16,7 +16,6 @@ const TaskList = () => {
   };
 
   const handleTaskSubmit = (newTask) => {
-
     setTasks([newTask, ...tasks]);
     // 폼 닫기
     closeForm();
@@ -27,11 +26,24 @@ const TaskList = () => {
     setTasks(updatedTasks); // 업무 배열을 업데이트합니다.
   };
 
+  const handleCheckboxChange = (id) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        return {
+          ...task,
+          completed: !task.completed
+        };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  };
+
   return (
     <div className="task-list" style={{ height: '400px' }}>
       <div className="button-container">
         <button className="add-button" onClick={openForm}>추가</button>
-        <button className="delete-button" onClick={handleDeleteTask}>삭제</button>
+        <button className="delete-button" onClick={() => handleDeleteTask()}>삭제</button>
       </div>
       {isFormOpen && (
         <div className="mini-page">
@@ -40,18 +52,22 @@ const TaskList = () => {
       )}
       {tasks.map((task, index) => (
         <div key={task.id} className="task-item">
-        <div className="task-info">
-          <p>{index + 1}. {task.title} {task.status} {task.startDate} ~ {task.endDate}</p>
-          <div className="checkbox-container">
-            <input type="checkbox" />
+          <div className="task-info">
+            <p>
+              {index + 1}. {task.title} {task.status} {task.startDate} ~ {task.endDate}
+            </p>
+            <div className="checkbox-container">
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => handleCheckboxChange(task.id)}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      
       ))}
     </div>
   );
-} 
-
+};
 
 export default TaskList;
