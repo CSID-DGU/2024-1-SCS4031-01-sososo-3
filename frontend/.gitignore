@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+#mongourl
+dev.js
+
 # production
 /build
 
