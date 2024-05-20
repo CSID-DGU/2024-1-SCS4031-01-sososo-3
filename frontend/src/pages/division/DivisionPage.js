@@ -7,7 +7,7 @@ import Division from './Division'
 
 const DivisionPage = () => {
   return (
-    <div className="app">
+    <div>
       <DivisionHeader />
       <div >
       <Division />

@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+//import { Button } from "@material-ui/core";
 import CompanyOrganization from '../CompanyOrganization';
 import '../../App.css';
 
-const EmployeeHeader = () => {
+export const EmployeeHeader = () => {
   const navigate = useNavigate(); // useNavigate 사용하기
   const [showOrganization, setShowOrganization] = useState(false); // 조직도 보기
   const modalRef = useRef(null); // 모달 레퍼런스
@@ -27,11 +28,11 @@ const EmployeeHeader = () => {
         </button>
       </div>
       <div className="center-button">
-        <button onClick={() => setShowOrganization(true)}>조직도 보기</button> {/* 조직도 보기 버튼 */}
+        <button onClick={() => setShowOrganization(true)}>조직도 보기</button>
       </div>
       <div className="right-buttons">
-        <button>내 정보</button>
-        <button>로그아웃</button>
+        <button variant="contained">내 정보</button>
+        <button variant="contained">로그아웃</button>
       </div>
 
       {showOrganization && (
@@ -48,8 +49,3 @@ const EmployeeHeader = () => {
 }
 
 export default EmployeeHeader;
-
-
-
-
-

@@ -7,7 +7,7 @@ import Team from '../team/Team';
 
 const TeamPage = () => {
   return (
-    <div className="app">
+    <div>
       <TeamHeader />
       <div>
       <Team />

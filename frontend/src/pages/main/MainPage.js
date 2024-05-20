@@ -8,7 +8,7 @@ import DateComponent from './DateComponent';
 
 const MainPage = () => {
   return (
-    <div className="app">
+    <div>
       <EmployeeHeader />
       <div className="rounded-rectangles-container">
         <DateComponent />

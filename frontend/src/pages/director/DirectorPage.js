@@ -7,7 +7,7 @@ import Director from './Director'
 
 const DirectorPage = () => {
   return (
-    <div className="app">
+    <div>
       <DirectorHeader />
       <div >
       <Director />
