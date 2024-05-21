@@ -109,8 +109,9 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
           <label>상태</label>
           <select value={status} onChange={handleStatusChange}>
             <option value="예정">예정</option>
-            <option value="완료">완료</option>
+            <option value="완료">진행</option>
             <option value="회의">회의</option>
+            <option value="회의">완료</option>
             </select>
           </div>
 
