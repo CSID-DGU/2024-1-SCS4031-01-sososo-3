@@ -91,6 +91,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="text"
             value={author}
             onChange={handleAuthorChange} //작성자 변경 핸들러 사용
+            required
           />
         </div>
 
@@ -100,6 +101,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="text"
             value={assignee}
             onChange={handleAssigneeChange}
+            required
             />
         </div>
 
@@ -109,7 +111,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             <option value="예정">예정</option>
             <option value="완료">완료</option>
             <option value="회의">회의</option>
-          </select>
+            </select>
           </div>
 
         <div className="form-group">
@@ -126,6 +128,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="date"
             value={startDate}
             onChange={handleStartDateChange}
+            required
           />
         </div>
 
@@ -135,6 +138,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="date"
             value={endDate}
             onChange={handleEndDateChange}
+            required
           />
         </div>
 
