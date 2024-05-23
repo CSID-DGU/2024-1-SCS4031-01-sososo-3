@@ -15,7 +15,7 @@ const taskSchema = new mongoose.Schema({
     type: String, 
     unique:true
 },
-  taskAuthor: { type: Number },
+  taskAuthor: { type: String },
   taskTitle: {
      type: String,
       maxlength:100 
@@ -27,4 +27,8 @@ const taskSchema = new mongoose.Schema({
   stateCode: { type: Number }
 });
 
-module.exports = mongoose.model('Task', taskSchema);
+//module.exports = mongoose.model('Task', taskSchema);
+
+const Task = mongoose.models.Task || mongoose.model('Task', taskSchema);
+
+module.exports = Task;
