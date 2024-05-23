@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Room = require('../models/Room'); // Task 모델 불러오기
+const Room = require('../models/room'); // Task 모델 불러오기
 
 // Room 데이터 생성
-router.post('/rooms', (req, res) => {
-  const newRoom = new Task({
+router.post('/roomspost', (req, res) => {
+  const newRoom = new Room({
     roomId: "R00001",
     businessNum: "B0001", //사업 번호
     groupCode: "G0002", //조직코드
@@ -20,8 +20,8 @@ router.post('/rooms', (req, res) => {
 });
 
 // 모든 Task 데이터 조회
-router.get('/rooms', (req, res) => {
-  Task.find()
+router.get('/roomsget', (req, res) => {
+  Room.find()
     .then(rooms => res.json(rooms))
     .catch(err => res.status(500).json({ error: 'Room 데이터 조회 실패', details: err }));
 });

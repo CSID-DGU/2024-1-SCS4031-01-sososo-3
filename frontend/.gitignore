@@ -9,7 +9,7 @@
 /coverage
 
 #mongourl
-dev.js
+backend/config/dev.js
 
 # production
 /build

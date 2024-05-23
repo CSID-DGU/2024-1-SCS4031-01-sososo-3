@@ -1,7 +1,10 @@
 const express = require('express'); // express 임포트
 const app = express(); // app 생성
 const cors = require("cors")
-const UserModel = require("./models/user");
+const config = require("./config/key")
+const { UserModel } = require('./models/user');
+const { taskRouter } = require('./routes/task');
+
 //const MemberModel = require("./models/member");
 // const GroupModel = require("./models/group");
 // const LebelModel = require("./models/level");
@@ -11,6 +14,7 @@ const UserModel = require("./models/user");
 
 const port = 3001;
 
+app.use(express.urlencoded({ extended: true })); // application/x-www-form-urlencode
 app.use(express.json());
 app.use(cors())
 
@@ -31,19 +35,28 @@ app.listen(port, () => console.log(`Server is running on http://localhost:${port
 const mongoose = require('mongoose');
 mongoose
   .connect(
-    "mongodb+srv://ottffss1005:Wooang6324@cluster0.cgrpj1p.mongodb.net/sososo",
-    {
-      // useNewUrlPaser: true,
-      // useUnifiedTofology: true,
-      // useCreateIndex: true,
-      // useFindAndModify: false,
-    }
-  )
+    config.mongoURL,)
+
   .then(() => console.log('MongoDB conected'))
   .catch((err) => {
     console.log("connected error");
     console.log(err);
   });
+
+  //조회
+  // async function findData() {
+  //   try {
+  //     const usersCollection = client.db(cluster0).collection('sososo.users');
+  //     const result = await usersCollection.find().toArray();
+  //     console.log('Found data:', result);
+  //   } catch (error) {
+  //     console.error('Failed to find data', error);
+  //   }
+  // }
+  
+  //findData();
+
+
 
   // 로그인
   app.post("/login", (req, res) => {
@@ -61,3 +74,5 @@ mongoose
         }
     })
 })
+
+
