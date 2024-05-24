@@ -27,4 +27,6 @@ const taskSchema = new mongoose.Schema({
   stateCode: { type: Number }
 });
 
-module.exports = mongoose.model('Task', taskSchema);
+const Task= mongoose.models.Task || mongoose.model('Task', taskSchema);
+
+module.exports = Task;

@@ -91,6 +91,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="text"
             value={author}
             onChange={handleAuthorChange} //작성자 변경 핸들러 사용
+            required
           />
         </div>
 
@@ -100,6 +101,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="text"
             value={assignee}
             onChange={handleAssigneeChange}
+            required
             />
         </div>
 
@@ -126,6 +128,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="date"
             value={startDate}
             onChange={handleStartDateChange}
+            required
           />
         </div>
 
@@ -135,6 +138,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
             type="date"
             value={endDate}
             onChange={handleEndDateChange}
+            required
           />
         </div>
 
