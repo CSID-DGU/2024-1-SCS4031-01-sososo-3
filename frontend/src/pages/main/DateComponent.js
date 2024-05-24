@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import '../../App.css';
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { GiExitDoor } from "react-icons/gi";
+import { useNavigate } from 'react-router-dom';
+import { FaCalendarAlt } from "react-icons/fa";
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const DateComponent = () => {
   const [date, setDate] = useState(new Date());
+  const [showCalendar, setShowCalendar] = useState(false);
 
+  const navigate = useNavigate();
+  const handleExit = () => {
+    navigate('/team'); // 나가기 버튼 클릭 시 '/team' 페이지로 이동
+  };
   const handlePrevWeek = () => {
     const prevWeek = new Date(date.getTime());
     prevWeek.setDate(prevWeek.getDate() - 7);
@@ -21,7 +33,7 @@ const DateComponent = () => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
-    return `${year}/${month}/${day}`;
+    return `${year}.${month}.${day}`;
   };
 
   // 주차 반환하는 함수
@@ -32,15 +44,53 @@ const DateComponent = () => {
     return `${month} ${weekNumber}주차`;
   };
 
+  //캘린더
+  const handleCalendarClick = () => {
+    setShowCalendar(!showCalendar);
+  };
+
+  const handleDateChange = (date) => {
+    setDate(date);
+    setShowCalendar(false);
+  };
+
   return (
-    <div className="rounded-rectangle1">
-      {/* 둥근 모서리를 가진 직사각형 내부의 내용 */}
-      <div>
-        <span>Today {formatDate(new Date())}</span>
-        <button onClick={handlePrevWeek}>&lt;</button>
-        <span>{formatWeek(date)}</span>
-        <button onClick={handleNextWeek}>&gt;</button>
+    <div>
+    <div className='employee-header2'>
+
+      <button className="exit-button2" onClick={handleExit}>
+          <GiExitDoor /> {/* 나가기 아이콘 */}
+        </button>
+        
+      <div className='datebutton'>
+        <button onClick={handlePrevWeek}>
+          <IoIosArrowBack/>
+        </button>
+        <span className='date'>{formatWeek(date)}</span>
+        <button onClick={handleNextWeek}>
+         <IoIosArrowForward/>
+        </button>
       </div>
+
+      <div className="date-header">
+        <div className="today">
+          <span>Today</span>
+        </div>
+        <div className='date'>
+          {formatDate(new Date())}
+        </div>
+        <FaCalendarAlt onClick={handleCalendarClick} />
+      </div>
+    </div>
+    {showCalendar && (
+          <div className="calendar-container">
+            <DatePicker
+              selected={date}
+              onChange={handleDateChange}
+              inline
+            />
+          </div>
+        )}
     </div>
   );
 }

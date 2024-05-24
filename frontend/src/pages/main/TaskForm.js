@@ -50,40 +50,40 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
     e.preventDefault();
     const newTask = {
       id: taskId, // TaskList에서 전달된 taskId 사용
-      title: taskTitle,
-      description: taskDescription,
-      author: author, //작성자 정보 추가
-      assignee: assignee,
-      status: status,
-      attachment: attachment, // 파일 정보도 전달
-      startDate: startDate,
-      endDate: endDate
+      title: taskTitle, // 업무제목
+      description: taskDescription, // 업무설명
+      author: author, // 작성자
+      assignee: assignee, // 담당자
+      status: status, // 진행상태
+      attachment: attachment, // 첨부파일
+      startDate: startDate, // 시작일
+      endDate: endDate // 종료일
     };
-    onTaskSubmit(newTask); // 새로운 업무 정보를 전달합니다.
-    onClose(); // 미니페이지를 닫습니다.
+    onTaskSubmit(newTask); 
+    onClose();
   };
 
   return (
     <div className="task-form">
-      <h2>업무 작성</h2>
-      <form onSubmit={handleSubmit}>
-        
-          
+      <div className='task-title'>작성하기</div>
+      <form onSubmit={handleSubmit}> 
+
+          <div className='task-text'>
           <input
             type="text"
-            placeholder="제목을 입력하세요"
+            placeholder="제목을 입력하세요."
             value={taskTitle}
             onChange={handleTitleChange}
             required
           />
-          
           <textarea
             type="text"
-            placeholder="내용을 입력하세요"
+            placeholder="내용을 입력하세요."
             value={taskDescription}
             onChange={handleDescriptionChange}
             required
           />
+          </div>
         
         <div className="form-group">
            <label>작성자</label>
@@ -94,7 +94,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
           />
         </div>
 
-        <div className="form-group">
+        <div className = "form-group">
           <label>담당자</label>
           <input 
             type="text"
@@ -104,16 +104,16 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
         </div>
 
         <div className="form-group">
-          <label>상태</label>
+          <label>진행상태</label>
           <select value={status} onChange={handleStatusChange}>
             <option value="예정">예정</option>
-            <option value="완료">완료</option>
             <option value="회의">회의</option>
+            <option value="완료">완료</option>
           </select>
           </div>
 
         <div className="form-group">
-          <label>첨부</label>
+          <label>파일첨부</label>
           <input
             type="file"
             onChange={handleAttachmentChange}
@@ -140,6 +140,7 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
 
         <button type="submit">저장</button>
         <button type="button" onClick={onClose}>취소</button>
+
       </form>
     </div>
   );
