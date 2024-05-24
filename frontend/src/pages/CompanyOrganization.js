@@ -1,70 +1,154 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { MdOutlineManageSearch } from "react-icons/md";
+import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 
 
 const CompanyOrganization = () => {
   // 회사 조직도 데이터
   const navigate = useNavigate();
 
-  const companyStructure = {
-    CEO: {
+  const [companyStructure, setCompanyStructure] = useState([
+    {
       name: '대표이사',
-      departments: {
-        '경영지원본부': {
-          name: '경영지원본부장',
-          teams: ['행정팀', '인사팀', '총무팀']
+      children: [
+        {
+          name: '경영지원 본부',
+          children: [
+            { name: '행정팀', visible: false },
+            { name: '인사팀', visible: false }
+          ]
         },
-        '시스템사업본부': {
-          name: '시스템사업본부장',
-          teams: ['시스템영업1팀', '시스템영업2팀', '공공영업1팀', '공공영업2팀', '기술지원팀']
+        {
+          name: '시스템사업 본부',
+          children: [
+            { name: '시스템영업1팀', visible: false },
+            { name: '시스템영업2팀', visible: false },
+            { name: '공공영업1팀', visible: false },
+            { name: '공공영업2팀', visible: false },
+            { name: '기술지원팀', visible: false }
+          ]
         },
-        '개발사업본부': {
-          name: '개발사업본부장',
-          teams: ['보안개발팀', 'SW개발1팀','SW개발2팀']
+        {
+          name: '개발사업본부',
+          children: [
+            { name: '보안개발팀', visible: false },
+            { name: 'SW개발1팀', visible: false },
+            { name: 'SW개발2팀', visible: false }
+          ]
         },
-        'SM사업본부': {
-          name: 'SM사업본부장',
-          teams: ['사업기획팀', 'SM영업팀', '서비스센터팀']
+        {
+          name: 'SM사업본부',
+          children: [
+            { name: '사업기획팀', visible: false },
+            { name: 'SM영업팀', visible: false },
+            { name: '서비스센터팀', visible: false }
+          ]
         }
-      }
+      ]
     }
+  ]);
+
+  
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // const handleDirectorClick = () => {
+  //   navigate("/director");
+  // };
+
+  // const handleDepartmentClick = (event) => {
+  //   event.stopPropagation(); 
+  //   navigate("/division");
+  // };
+
+  const handleDepartmentClick = (name) => {
+    navigate(`/${name.toLowerCase().replace(/\s/g, '-')}`);
   };
 
-  const handleDirectorClick = () => {
-    navigate("/director");
+  const toggleTeamList = (index) => {
+    const updatedCompanyStructure = [...companyStructure];
+    updatedCompanyStructure[0].children[index].children.forEach(team => {
+      team.visible = !team.visible;
+    });
+    setCompanyStructure(updatedCompanyStructure);
   };
 
-  const handleDepartmentClick = (event) => {
-    event.stopPropagation(); // 이벤트 전파 중지
-    navigate("/division");
-  };
-
-  // 조직도 컴포넌트 생성 함수
-  const renderDepartment = (department) => (
-    <div className="department" key={department}>
-      <h3 onClick={handleDepartmentClick}>{department}</h3>
-      <p>{/*companyStructure.CEO.departments[department].name*/}</p>
-      <ul>
-        {companyStructure.CEO.departments[department].teams.map((team) => (
-          <li key={team}>{team}</li>
+  const renderDepartment = (department, index) => (
+    <div className="department" key={department.name}>
+      <div className='department-header'>
+        <h3 onClick={() => toggleTeamList(index)}>
+          <span className="arrow-icon">{department.children.some(team => team.visible) ? <IoIosArrowDown /> : <IoIosArrowForward />}</span>
+        </h3>
+        <h3 onClick={() => handleDepartmentClick(department.name)} className="department-name">{department.name}</h3>
+      </div>
+      <ul style={{ display: department.children.some(team => team.visible) ? 'block' : 'none' }}>
+        {department.children.map((child, teamIndex) => (
+          <li key={teamIndex} style={{ display: child.visible ? 'block' : 'none' }} onClick={() => handleDepartmentClick(child.name)} className="team-name">{child.name}</li>
         ))}
       </ul>
     </div>
-  );
+  );  
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const filterDepartmentsAndTeams = (departments, searchTerm) => {
+    const filtered = departments.reduce((acc, department) => {
+      const lowerCaseName = department.name.toLowerCase();
+      const isMatched = lowerCaseName.includes(searchTerm.toLowerCase());
+  
+      if (isMatched) {
+        acc.push(department);
+      } else if (department.children) {
+        const filteredTeams = department.children.filter(team =>
+          team.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+  
+        if (filteredTeams.length > 0) {
+          acc.push({ ...department, children: filteredTeams });
+        }
+      }
+  
+      return acc;
+    }, []);
+  
+    return filtered;
+  };
+  
+  const filteredDepartments = searchTerm.trim() === '' ?
+    companyStructure[0].children :
+    filterDepartmentsAndTeams(companyStructure[0].children, searchTerm);
+  
+
 
   return (
+  <div className='search'>  
     <div className="company-organization">
-      <h2>조직도</h2>
-      <div className="ceo" onClick={handleDirectorClick}>
-        <h3>{companyStructure.CEO.name}</h3>
-        <div className="departments">
-          {Object.keys(companyStructure.CEO.departments).map((department) => (
-            renderDepartment(department)
-          ))}
-        </div>
+      <div className="search-container">
+        <MdOutlineManageSearch />
+        <input 
+          className="search-input"
+          type="text" 
+          placeholder="부서를 입력하세요." 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+        />
       </div>
+      <div className="ceo">
+        <h3 className="ceo-header">
+        <IoIosArrowDown />
+        {companyStructure[0].name}
+        </h3>
+      <div className="departments">
+      {filteredDepartments.map((department, index) => (
+      renderDepartment(department, index)
+    ))}
+  </div>
+</div>
     </div>
+
+  </div>
   );
 };
 

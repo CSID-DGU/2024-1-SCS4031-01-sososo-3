@@ -48,18 +48,151 @@ body {
 
 .employee-header {
   display: flex;
-  align-items: center;
+  align-items: center; 
   justify-content: space-between;
-  background-color: #244f8a;
+  background-color: #096AB1;
   padding: 10px;
+  height: 45px;
+}
+.myinfor-header {
+  display: flex;
+  align-items: center; 
+  background-color: #eceaea;
+  padding: 10px;
+  height: 45px;
+  border-bottom: 1px solid #838383;
+}
+.website-name {
+  margin-left: 20px;
+  font-size: 25px; 
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  font-style: italic;
+  align-items: center;
+}
+.website-name2 {
+  margin-left: 20px;
+  font-size: 25px; 
+  color: #F16906;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  font-style: italic;
+  align-items: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+.orgsearch-button {
+  margin-right: 15px;
+  margin-left:10px;
+  font-size: 15px;
+  color: #fffefe;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 550; /* Bold */
+}
+.profile{
+  width: 250px;
+  height: 170px;
+  background-color: #eceaea;
+}
+.profile > svg{
+  width: 100px; 
+  height: 130px;
+  color: rgb(87, 87, 87);
+  stroke-width: 0.0000001; /* 선 두께 조정 */
+  margin-left: 20px;
+  margin-top: 15px;
+}
+.shortcut {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 100%;
+  background-color: #eceaea;  
+}
+.infor-letter {
+  margin-left: 20px;
+  font-size: 25px; 
+  color: #F16906;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  font-style: italic;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.infor-letter:hover {
+  color: rgb(87, 87, 87);
 }
 
-.exit-button {
+/* EmployeeHeader2 */
+.employee-header2 {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  height: 50px;
+}
+
+
+/* 슬라이드 패널 기본 스타일 */
+.slide-panel {
+  position: fixed;
+  top: 0;
+  left: -300px; /* 처음에는 화면 밖에 위치 */
+  width: 250px;
+  height: 100%;
+  background-color: #eceaea;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+/* 슬라이드 패널이 열릴 때의 스타일 */
+.slide-panel.open {
+  left: 0;
+}
+
+.slide-panel2 {
+  position: fixed;
+  top: 0;
+  right: -300px; /* 처음에는 화면 밖에 위치 */
+  width: 300px;
+  height: 100%;
+  background-color: #eceaea;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+/* 슬라이드 패널이 열릴 때의 스타일 */
+.slide-panel2.open {
+  right: 0;
+}
+
+.myinfor-button {
   background: none;
   border: none;
   cursor: pointer;
   color: white;
   margin-left: 10px;
+  margin-top: 5px;
+}
+.myinfor-button > svg {
+  width: 20px; /* 아이콘 크기 조정 */
+  height: 20px;
+}
+
+.exit-button2 {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color:#096AB1;
+  width: 20px; /* 아이콘 크기 조정 */
+  height: 20px;
+  margin-left: 10px;
+}
+.exit-button2 > svg {
+  width: 20px; /* 아이콘 크기 조정 */
+  height: 20px;
+  fill: #F16906; /* 아이콘 색상 설정 */
 }
 
 .center-button {
@@ -97,13 +230,6 @@ body {
 
 /* MainPage */
 
-/* .main-page {
-  text-align: center;
-} */
-/* .main-container {
-  text-align: center;
-} */
-
 .bg-secondary {
   background-color: #f8f9fa !important;
 }
@@ -114,121 +240,298 @@ body {
   margin-right: 30px;
 }
 
-.rounded-rectangle1 {
-  height: 100px;
-  border-radius: 20px;
-  background-color: #afcbe0;
-  border: 2px solid #9d9d9d;
+/* DateHeader */
+
+.datebutton {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 0 20px; /* 내부 여백 설정 */
+  justify-content: center;
 }
 
-.rounded-rectangle1 button {
+.datebutton > button {
   font-size: 20px;
   padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  border-radius: 50%;
+  background-color: #ebeaea;
   cursor: pointer;
-  margin: 0 10px; /* 버튼 간격 설정 */
+  margin: 0 10px;
+  border: none;
+  color: #525252
 }
 
-.rounded-rectangle1 button:hover {
-  background-color: #ddd;
+.datebutton > button:hover {
+  background-color: #b2b2b1;
 }
 
-.task-list-container {
-  margin-top: 50px; /* 업무 리스트 컨테이너와 위쪽 간격 설정 */
-  margin-left: 30px;
-  margin-right: 30px;
-  padding: 20px; /* 내부 여백 설정 */
-  background-color: #f0f0f0; /* 배경색 설정 */
-  border-radius: 10px; /* 모서리를 둥글게 설정 */
-  overflow-y: auto; /* 수직 스크롤이 필요한 경우 스크롤바 추가 */
-  max-height: 800px; /* 최대 높이 설정 */
-  border: 2px solid #9d9d9d;
+.datebutton > .date {
+  font-size: 18px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  margin: 0 10px; /* 화살표 버튼과 날짜 사이의 간격 설정 */
+  color: #525252
 }
 
-.task-list {
-  /* border: 1px solid #ccc; */
-  border-radius: 5px;
-  padding: 7px;
-  position: relative; /* 상대적 위치 설정 */
-}
-
-.button-container {
-  position: absolute; /* 절대적 위치 설정 */
-  top: 1px; /* 위에서 10px 떨어진 위치 */
-  right: 7px; /* 오른쪽에서 10px 떨어진 위치 */
-}
-
-.add-button,
-.delete-button,
-.share-button {
-  font-family: 'AppleGothic', sans-serif; 
-  font-weight: bold; 
-  margin-left: 15px; /* 버튼 간격 설정 */
-  background-color: #d1dbf5;
-  padding: 3px;
-}
-
-.task-item {
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
-.task-info {
-  font-size: 20px;
-  font-weight: bold;
-  height: 40px;
-  border-radius: 10px;
-  background-color: #ffffff;
+.date-header {
   display: flex;
   align-items: center;
-  border: 1.5px solid #121212;
-  padding: 0 10px; /* 내부 패딩을 추가하여 업무 정보와 체크박스 간격 조절 */
+  justify-content: space-between;
+  padding: 10px;
+  position: relative;
 }
 
-.task-info p {
-  margin: 5px 0;
+.today {
+  height: 30px;
+  width: auto; /* 자동 너비 */
+  border-radius: 20px;
+  background-color: #F16906;
+  border: 2px solid #9d9d9d;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 텍스트를 중앙으로 정렬 */
+  padding: 0 20px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: white; /* 텍스트 색상 변경 */
+  margin-right: 15px; /* 간격 추가 */
 }
 
-.checkbox-container {
-  margin-left: auto; /* 체크박스를 가장 오른쪽에 정렬 */
+.date-header > .date {
+  font-size: 17px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  color: #525252;
+  margin-right: 15px; 
+}
+
+.date-header > svg {
+  font-size: 15px; 
+  color: #F16906;
+}
+
+.react-datepicker {
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 1px 15px #c9c7c6;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.react-datepicker__current-month {
+  font-size: 10px;
+  font-weight: bold;
+  color: white;
+}
+
+.react-datepicker__day-name, .react-datepicker__day, .react-datepicker__time-name {
+  font-size: 14px;
+  color: #333;
+}
+
+.react-datepicker__day--today {
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.react-datepicker__day:hover {
+  background-color: #ddd;
+}
+.calendar-container {
+  position: absolute;
+  top: 135px;
+  right: 0;
+  margin-right: 8px;
+  z-index: 1000; /* Ensure the calendar container is on top */
+}
+
+/* Task List */
+
+.tasklist-container {
+  border-top: 0.5px solid #ccc;
+  background-color: rgb(255, 255, 255);
+  height: 100%;
+}
+
+.tasklist-container2 {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px;
+  height: 35px;
+}
+.letter {
+  font-size: 15px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  margin-left: 25px;
+  color: #525252
+}
+.button-container {
+  position: absolute;
+  right: 0;
+  margin-right: 35px;
+}
+.add-button,
+.delete-button,
+.share-button,
+.notshare-button {
+  margin-left: 15px; 
+  background-color: white;
+  border-radius: 8px;
+  border: 2px solid #b0afaf;
+  padding: 5px;
+  font-size: 13px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  color: #525252; /* 텍스트 색상 변경 */
+  align-items: center;
+  display: inline-flex;
+}
+.add-button > *,
+.delete-button > *,
+.share-button > *,
+.notshare-button > * {
+  margin-right: 7px; 
+}
+.tasklist {
+  margin-left: 25px;
+  margin-right: 25px;
+  padding: 20px; /* 내부 여백 설정 */
+  background-color: white; /* 배경색 설정 */
+  border-radius: 10px; /* 모서리를 둥글게 설정 */
+  overflow-y: auto; /* 수직 스크롤이 필요한 경우 스크롤바 추가 */
+  max-height: 660px;
+  height: 660px;
+  width: 1540px;
+  box-shadow: 1px 0 5px #9d9d9d;
+}
+.progress {
+  display: flex;
+  align-items: center; 
+  background-color: white;
+  height: 20px;
+  margin-bottom: 10px;
+}
+.left-content {
+  width: 600px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  left: 220px;
+  position: absolute;
+  border-radius: 10px;
+  flex: 1;
+}
+.center-content1 {
+  width: 200px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 590px;
+  position: absolute;
+  border-radius: 10px;
+  margin: 0 auto; 
+}
+.center-content1 > * {
+  left: 50%;
+}
+.center-content2 {
+  width: 200px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 370px;
+  position: absolute;
+  border-radius: 10px;
+}
+
+.right-content1 {
+  width: 180px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 150px;
+  position: absolute;
+  border-radius: 10px;
+}
+.right-content2 {
+  width: 30px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 80px;
+  position: absolute;
+  border-radius: 10px;
 }
 
 
-/* TaskForm.css */
+.task-info {
+  font-size: 30px;
+  font-weight: bold;
+  height: 45px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+}
+.task-info > svg{
+  width: 20px;
+  margin-left: 10px;
+}
+.task-info > svg:hover{
+  color: #F16906;
+}
+
+.status-scheduled .letter,
+.status-meeting .letter {
+  color: #F16906;
+  background-color: #e4e4e4;
+  border-radius: 8px;
+  padding: 1px;
+}
+
+.status-completed .letter {
+  color: white;
+  background-color: #F16906;
+  border-radius: 8px;
+  padding: 1px;
+}
+
+/* 업무작성 폼 */
 
 .task-form {
   position: fixed;
   top: 50%;
   left: 50%;
+  height: 650px;
+  width: 900px;
+  max-height: 650px;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  background-color: #FFF0F0;
-  padding: 40px;
+  overflow-y: auto;
+  background-color: #fefefe;
+  padding: 30px;
   border-radius: 8px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  width: 600px; /* 폼의 너비를 더 크게 설정합니다 */
-  max-height: 80vh;
-  overflow-y: auto;
 }
 
-.task-form h2 {
-  margin-bottom: 30px;
-  border: 2px solid #000000; /* 테두리 설정 */
-  background-color: #2B90D9;
-  padding: 10px; /* 내부 여백 설정 */
-  font-size: 24px;
-  color: #ffffff;
-  text-align: center; /* 가운데 정렬 */
-  border-radius: 20px;
+.task-title {
+  margin-bottom: 20px;
+  background-color: #eeeeee;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  color: #525252
+}
+.task-text input {
+  margin-bottom: 20px;
+  background-color: #eeeeee;
+  padding: 10px;
+  border-radius: 10px;
+  font-family: 'Arial', sans-serif;
+  font-weight: bolder;
+  color: #525252
 }
 
 .task-form label {
@@ -245,14 +548,20 @@ body {
 .task-form input,
 .task-form textarea,
 .task-form select {
-  width: calc(100% - 10px); /* 입력 필드의 너비를 설정합니다 */
+  width: calc(100% - 10px);
   padding: 10px;
   border: 2px solid #000000;
   border-radius: 20px;
   box-sizing: border-box;
   margin-bottom: 15px;
   font-size: 16px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  color: #525252
+}
+
+.task-form textarea {
+  resize: vertical;
+  height: 100px; /* 텍스트 영역의 높이를 설정합니다 */
 }
 
 .form-group {
@@ -283,10 +592,6 @@ margin-right: 24px;
 border-color: #2B90D9;
 }
 
-.task-form textarea {
-  resize: vertical;
-  height: 100px; /* 텍스트 영역의 높이를 설정합니다 */
-}
 
 .form-group select {
   background-color: rgb(255, 255, 255); /* 배경색 설정 */
@@ -384,86 +689,117 @@ border-color: #2B90D9;
   color: inherit; /* 마우스 호버 시 색상 상속 */
 }
 
-/* 조직도보기 모달 */
-.modal-background {
-  position: fixed;
-  top: calc(5% - 0px); /* 수직 중앙에서 아래로 50px 이동 */
-  left: 0;
-  width: 100%;
+/* 조직검색 모달 */
+.org-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  position: relative;
-  background-color: white;
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0px 0px 10px rgba(146, 145, 145, 0.5); /* 그림자 효과 */
-  max-width: 90%;
-}
-
-.modal-content button {
-  position: absolute;
-  top: -10px; /* x 버튼을 모달 내부 위에 위치시킴 */
-  right: -10px; /* x 버튼을 오른쪽에 위치시킴 */
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-.company-organization {
-  flex-direction: column;
-  align-items: center;
-  text-align: center; 
-}
-
-.ceo { /* 대표이사와 본부 간격 */
-  margin-top: 30px;
-}
-.department-line {
-  border-top: 1px solid #ccc;
-  margin-top: 20px; /* 각 본부 사이의 간격 */
-}
-.department { /* 본부 간 */
-  border-radius: 8px;
+  align-items: center; 
+  background-color: #096AB1;
   padding: 10px;
+  height: 45px;
+}
+.company-organization {
+  padding: 20px;
+}
+
+.department {
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+.department:hover {
+  background-color: #f0f0f0; /* 마우스를 올렸을 때의 배경색 */
+}
+
+.department h3 {
+  cursor: pointer;
+  color: #333;
   margin-bottom: 10px;
 }
 
-.departments {
-  display: flex;
-  justify-content: space-around;
-}
-.departments .department {
-  width: 150px;
-}
-
-.departments .department h3 {
-  margin-top: 5px;
-}
-
-.departments .department p {
-  margin-bottom: 5px;
-}
-
-.departments .department ul {
+.department ul {
+  list-style-type: none;
   padding-left: 20px;
 }
-.ceo h3:hover {/* 대표이사에 마우스 호버 시 반응 */
-  cursor: pointer;
-  filter: brightness(90%);
-  color: rgb(89, 128, 212); 
+
+.department ul li {
+  margin-bottom: 5px;
+  color: #666;
 }
-.department h3:hover {/* 본부에 마우스 호버 시 반응 */
-  cursor: pointer;
-  filter: brightness(90%);
-  color: rgb(89, 128, 212);
+.department-header h3 {
+  display: inline-block; 
+  margin-right: 8px;
+}
+.department-headeer h2 {
+  font-weight: bold;
 }
 
-/* Login */
+.department-header h3 span.arrow-icon {
+  margin-right: 2px; /* 화살표 아이콘과 부서 이름 사이의 간격 조정 */
+}
+
+.ceo {
+  margin-bottom: 20px;
+}
+
+.ceo h3 {
+  cursor: pointer;
+  color: #333;
+  margin-bottom: 10px;
+}
+.ceo-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.department + .department {
+  border-top: 1px solid #ccc; /* 회색 구분선 추가 */
+  margin-top: 10px; /* 본부 사이의 간격 조정 */
+  padding-top: 10px; /* 구분선 위쪽 간격 조정 */
+}
+
+.search-container {
+  display: flex; /* 아이콘과 입력란을 가로로 배치하기 위해 flex를 사용합니다. */
+  align-items: center; /* 수직 가운데 정렬 */
+  margin-bottom: 25px;
+}
+
+.search-input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  width: 210px;
+  font-size: 15px;
+  margin-left: 10px; /* 아이콘과 입력란 사이의 간격을 조정합니다. */
+  background-color: #F7F4F4;
+}
+
+.search-container > svg {
+  width: 50px; /* 아이콘 크기 조정 */
+  height: 50px;
+  fill: #F16906; /* 아이콘 색상 설정 */
+}
+
+.search-input:focus {
+  border-color: #096AB1;
+  outline: none; 
+}
+
+.department-name,
+.team-name {
+  cursor: pointer; /* 마우스를 갖다대면 커서 모양 변경 */
+  transition: color 0.3s; /* 색 변화에 대한 부드러운 전환 효과 */
+
+  /* 기본 색상 */
+  color: #F16906;
+}
+
+/* 마우스를 갖다 대었을 때의 색상 */
+.department-name:hover,
+.team-name:hover {
+  color: #F16906; /* 예시로 파란색으로 변경 */
+}
+
+/* 로그인 페이지 */
 
 .app {
   background-color: #e1eefa;

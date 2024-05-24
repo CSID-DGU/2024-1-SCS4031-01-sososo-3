@@ -12,6 +12,7 @@ const memberSchema = new mongoose.Schema({
   },
   employeeName: {
     type: String,
+    unique: false,
     maxlength: 50
   }
 });
