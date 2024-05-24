@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-//import { Button } from "@material-ui/core";
 import CompanyOrganization from '../CompanyOrganization';
 import '../../App.css';
 
