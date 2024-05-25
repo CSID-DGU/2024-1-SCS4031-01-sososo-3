@@ -142,8 +142,8 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
           />
         </div>
 
-        <button type="submit">저장</button>
         <button type="button" onClick={onClose}>취소</button>
+        <button type="submit">저장</button>
 
       </form>
     </div>
