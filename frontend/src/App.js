@@ -6,6 +6,7 @@ import TeamPage from './pages/team/TeamPage';
 import DivisionPage from './pages/division/DivisionPage';
 import DirectorPage from './pages/director/DirectorPage';
 import Login from './pages/Login';
+import SharePage from './pages/share/SharePage';
 import './App.css';
 
 
@@ -22,7 +23,7 @@ const App = () => {
           <Route path="/director" element={<DirectorPage />} /> {/* DirectorPage 라우팅 추가 */}
           <Route path="/director/4" element={<DivisionPage />} /> {/* 시스템영업본부 라우팅 추가*/}
           <Route path="/division/2" element={<TeamPage />} /> {/* 시스템영업1팀 라우팅 추가*/}
-          <Route path="/team/:id" element={<MainPage />} /> {/* 사원페이지 라우팅 추가*/}
+          <Route path="/team/:id" element={<SharePage />} /> {/* 팀페이지 라우팅 추가*/}
           
         </Routes>
 
