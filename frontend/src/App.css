@@ -474,28 +474,29 @@ body {
   border-radius: 10px;
 }
 .right-content3 {
-  width: 140px;
-  text-align: center;
-  right: 110px;
-  /* position: absolute; */
-  border-radius: 10px;
-}
-.right-content4 {
-  width: 100px;
-  text-align: center;
-  /* background-color: #dce4ea; */
-  right: 10px;
-  /* position: absolute; */
-  border-radius: 10px;
-}.right-content5 {
-  width: 500px;
+  width: 90px;
   text-align: center;
   /* background-color: #dce4ea; */
   right: 80px;
   /* position: absolute; */
   border-radius: 10px;
 }
+.right-content4 {
+  width: 50px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 5px;
+  /* position: absolute; */
+  border-radius: 10px;
 
+}.right-content5 {
+  width: 150px;
+  text-align: center;
+  /* background-color: #dce4ea; */
+  right: 80px;
+  /* position: absolute; */
+  border-radius: 10px;
+}
 
 .task-info {
   font-size: 30px;
