@@ -118,7 +118,7 @@ const TaskList = () => {
         {tasks.map((task, index) => (
         <div key={task.id}>
           <div className="task-info">
-            <MdOutlineAutoFixNormal/>
+            <button onClick={openForm}><MdOutlineAutoFixNormal/></button>
             <div className='letter'>{index + 1}</div>
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
