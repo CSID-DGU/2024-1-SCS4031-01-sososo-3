@@ -729,7 +729,6 @@ body {
   justify-content: center;
 }
 
-
 .member-card {
   width: 96%;
   height: 120px; 
@@ -748,7 +747,6 @@ body {
   cursor: pointer;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 
 .other-cards {
   width: 350px;
