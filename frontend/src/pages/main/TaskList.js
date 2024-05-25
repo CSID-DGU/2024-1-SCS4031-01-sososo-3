@@ -68,6 +68,14 @@ const TaskList = () => {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}.${month}.${day}`;
   };
+
+  const formatDate1 = (date) => {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
   
   const getStatusColor = (status) => {
     switch (status) {
@@ -122,7 +130,7 @@ const TaskList = () => {
             <div className='letter'>{index + 1}</div>
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
-              <div className='center-content2'><div className='letter'>{task.startDate} ~ {task.endDate}</div></div>
+              <div className='center-content2'><div className='letter'>{formatDate1(task.startDate)} ~ {formatDate1(task.endDate)}</div></div>
             <div className='right-content1'>
               <div className='letter'>{formatDate(new Date())}</div>
             </div>
