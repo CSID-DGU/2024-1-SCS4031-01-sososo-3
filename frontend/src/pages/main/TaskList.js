@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TaskForm from './TaskForm'; // 업무 작성을 위한 미니페이지 컴포넌트
 import '../../App.css';
 import { IoIosAdd } from "react-icons/io";
@@ -11,8 +11,25 @@ import { MdOutlineAutoFixNormal } from "react-icons/md";
 const TaskList = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const [taskId, setTaskId] = useState(1); //
+  const roomId = 'R001'; // 기본 roomId 설정
 
+  useEffect(() => { // 페이지 로드 시 태스크 목록을 받아오는 useEffect 추가
+    const fetchTasks = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/tasks/${roomId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks');
+        }
+        const data = await response.json();
+        console.log('Fetched tasks:', data); // 받아온 태스크 로그 추가
+        setTasks(data);
+      } catch (error) {
+        console.error('Failed to fetch tasks:', error);
+      }
+    };
+
+    fetchTasks();
+  }, [roomId]);  
   const openForm = () => {
     setIsFormOpen(true);
   };
@@ -103,7 +120,7 @@ const TaskList = () => {
           <div className="task-info">
             <MdOutlineAutoFixNormal/>
             <div className='letter'>{index + 1}</div>
-              <div className='left-content'><div className='letter'>{task.title}</div></div>
+              <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
               <div className='center-content2'><div className='letter'>{task.startDate} ~ {task.endDate}</div></div>
             <div className='right-content1'>

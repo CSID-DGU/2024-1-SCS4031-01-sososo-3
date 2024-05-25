@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState} from 'react';
 import { TfiMenu } from "react-icons/tfi";
 import { SlOrganization } from "react-icons/sl";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from 'react-router-dom';
 import CompanyOrganization from '../CompanyOrganization';
 import '../../App.css';
 
 export const EmployeeHeader = () => {
-  const navigate = useNavigate(); // useNavigate 사용하기
   const [showOrganization, setShowOrganization] = useState(false); // 조직검색
   const [showMyinforSlide, setShowMyinforSlide] = useState(false); // 내정보 슬라이드
-  const organizationRef = useRef(null);
-  const myInforRef = useRef(null);
 
   const handleMyinfor = () => {
     setShowMyinforSlide(!showMyinforSlide); 
@@ -21,22 +17,6 @@ export const EmployeeHeader = () => {
   const handleOranization = () => {
     setShowOrganization(!showOrganization);
   }
-
-  const handleClickOutside = (event) => {
-    if (organizationRef.current && !organizationRef.current.contains(event.target)) {
-      setShowOrganization(false);
-    }
-    if (myInforRef.current && !myInforRef.current.contains(event.target)) {
-      setShowMyinforSlide(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   return (
     <div className="employee-header">

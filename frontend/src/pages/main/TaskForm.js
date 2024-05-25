@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
+const TaskForm = ({ onClose, onTaskSubmit }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
-  const [author, setAuthor] = useState(''); // 작성자 상태 변수 추가
-  const [assignee, setAssignee] = useState(''); //담당자 상태 변수
+  const [author, setAuthor] = useState('');
+  const [assignee, setAssignee] = useState('');
   const [status, setStatus] = useState('예정');
-  const [attachment, setAttachment] = useState(null); // 파일 상태 추가
+  const [attachment, setAttachment] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const roomId = 'R001'; // roomId를 기본 값으로 설정
+
 
   const handleTitleChange = (e) => {
     setTaskTitle(e.target.value);
@@ -46,21 +48,42 @@ const TaskForm = ({ onClose, onTaskSubmit, taskId }) => {
     setEndDate(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newTask = {
-      id: taskId, // TaskList에서 전달된 taskId 사용
-      title: taskTitle, // 업무제목
-      description: taskDescription, // 업무설명
-      author: author, // 작성자
-      assignee: assignee, // 담당자
-      status: status, // 진행상태
-      attachment: attachment, // 첨부파일
-      startDate: startDate, // 시작일
-      endDate: endDate // 종료일
+      taskTitle,
+      taskDescription,
+      taskAuthor: author,
+      taskAssignee: assignee,
+      status,
+      attachment,
+      startDate: new Date(startDate).toISOString(), // 수정된 부분
+      endDate: new Date(endDate).toISOString(), // 수정된 부분
+      roomId,
+      groupCode: 'G0001' // groupCode를 기본 값으로 설정
     };
-    onTaskSubmit(newTask); 
-    onClose();
+    
+    try {
+      const response = await fetch('http://localhost:3001/api/taskspost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newTask)
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        onTaskSubmit(data.task); // 서버에서 반환된 태스크 데이터를 사용
+        onClose();
+      } else {
+        console.error('Failed to add task:', data.error);
+        alert('Failed to add task');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to add task');
+    }
   };
 
   return (
