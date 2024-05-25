@@ -32,10 +32,10 @@ function Login() {
     <div className="app">
 
       <div className="login-container">
-          <h2>Login</h2>
+          <h2>SOSOSO</h2>
           <form onSubmit={handleSubmit} className="w-100">
               <div className="form-group">
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">E-mail  <span>...</span></label>
                   <input 
                       type="text" 
                       placeholder='Enter Email' 
@@ -59,7 +59,7 @@ function Login() {
               </div>
               <div>
                   <button type="submit" className="login-button">
-                      Login
+                      LOGIN
                   </button>
               </div>
           </form>
