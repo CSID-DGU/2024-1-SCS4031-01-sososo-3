@@ -2,50 +2,59 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/task'); // Task 모델 불러오기
 
+// 가장 최근의 taskId를 가져오는 함수
+const getNextTaskId = async (roomId) => {
+  const lastTask = await Task.findOne({ roomId }).sort({ taskId: -1 }).exec();
+  if (lastTask) {
+    const lastTaskIdNumber = parseInt(lastTask.taskId.slice(1), 10);
+    return `T${(lastTaskIdNumber + 1).toString().padStart(4, '0')}`;
+  } else {
+    return 'T0100';
+  }
+};
+
 // Task 데이터 생성
-router.post('/taskspost', (req, res) => {
-  const newTask = new Task({
-    taskId: "T0002",
-    roomId: "R0002",
-    businessNumber: "B0002",
-    groupCode: "G0002",
-    taskAuthor: "김미소",
-    taskTitle: "테스트2",
-    taskContent: "테스트입니다.",
-    taskAssignee: "김미소",
-    startDate: "20240304",
-    endDate: "20240501",
-    stateCode: "01"
-  });
+router.post('/taskspost', async (req, res) => {
+  const { taskTitle, taskDescription, taskAuthor, taskAssignee, status, attachment, startDate, endDate, roomId, groupCode } = req.body;
 
-  newTask.save()
-    .then(() => res.status(201).json({ message: 'Task 데이터 저장 성공' }))
-    .catch((err) => res.status(500).json({ error: 'Task 데이터 저장 실패', details: err }));
+  try {
+    const taskId = await getNextTaskId(roomId);
+    console.log('Received taskId:', taskId);
+
+    const newTask = new Task({
+      taskId,
+      groupCode: groupCode || 'G0001', // groupCode를 기본 값으로 설정
+      taskTitle,
+      taskDescription,
+      taskAuthor,
+      taskAssignee,
+      status,
+      attachment,
+      startDate: new Date(startDate), // ISO 문자열을 Date 객체로 변환하여 저장
+      endDate: new Date(endDate), // ISO 문자열을 Date 객체로 변환하여 저장
+      roomId
+    });
+
+    await newTask.save();
+    console.log('Task saved:', newTask); // 저장된 태스크 로그 추가
+    res.status(201).json({ message: 'Task 데이터 저장 성공', task: newTask });
+  } catch (err) {
+    console.error('Error saving task:', err.message, err.stack); // 서버 로그에 에러 출력
+    res.status(500).json({ error: 'Task 데이터 저장 실패', details: err.message });
+  }
 });
 
-// 모든 Task 데이터 조회
-router.get('/tasksget', (req, res) => {
-  Task.find()
-    .then(tasks => res.json(tasks))
-    .catch(err => res.status(500).json({ error: 'Task 데이터 조회 실패', details: err }));
+// 특정 roomId의 모든 Task 데이터 조회
+router.get('/tasks/:roomId', async (req, res) => { // 새로운 엔드포인트 추가
+  const { roomId } = req.params;
+  try {
+    const tasks = await Task.find({ roomId });
+    console.log('Tasks fetched:', tasks); // 가져온 태스크 로그 추가
+    res.json(tasks);
+  } catch (err) {
+    console.error('Error fetching tasks:', err.message, err.stack); // 서버 로그에 에러 출력
+    res.status(500).json({ error: 'Task 데이터 조회 실패', details: err.message });
+  }
 });
-
-
-
-// //Task 수정
-// router.put('/tasks/:id', (req, res) => {
-//   const { id } = req.params;
-//   const updatedTask = req.body;
-
-//   Task.findByIdAndUpdate(id, updatedTask, { new: true })
-//     .then(task => {
-//       if (task) {
-//         res.json({ message: 'Task 수정 완료', task });
-//       } else {
-//         res.status(404).json({ error: 'Task 데이터가 존재하지 않습니다.' });
-//       }
-//     })
-//     .catch(err => res.status(500).json({ error: 'Task 수정 실패', details: err }));
-// });
 
 module.exports = router;
