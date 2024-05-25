@@ -14,7 +14,7 @@ const DateComponent = () => {
 
   const navigate = useNavigate();
   const handleExit = () => {
-    navigate('/Division'); // 나가기 버튼 클릭 시 '/Division' 페이지로 이동
+    navigate('/Director'); // 나가기 버튼 클릭 시 '/Director' 페이지로 이동
   };
   const handlePrevWeek = () => {
     const prevWeek = new Date(date.getTime());
