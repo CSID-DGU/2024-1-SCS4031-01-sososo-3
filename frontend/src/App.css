@@ -432,7 +432,7 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   left: 220px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
   flex: 1;
 }
@@ -441,7 +441,7 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   right: 590px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
   margin: 0 auto; 
 }
@@ -453,7 +453,7 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   right: 370px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }
 
@@ -462,7 +462,7 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   right: 150px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }
 .right-content2 {
@@ -470,14 +470,14 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   right: 80px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }
 .right-content3 {
   width: 140px;
   text-align: center;
   right: 110px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }
 .right-content4 {
@@ -485,14 +485,14 @@ body {
   text-align: center;
   /* background-color: #dce4ea; */
   right: 10px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }.right-content5 {
   width: 500px;
   text-align: center;
   /* background-color: #dce4ea; */
   right: 80px;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 10px;
 }
 
@@ -507,11 +507,15 @@ body {
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
 }
+.left-content span {
+  color: white;
+}
 .task-info > svg{
+  height: 20px;
   width: 20px;
   margin-left: 10px;
 }
-.task-info > svg:hover{
+.task-info > svg:hover {
   color: #F16906;
 }
 
@@ -706,72 +710,48 @@ body {
   justify-content: space-between;
 }
 
+
 /* 조직도 페이지 */
 .organization-container {
-  width: 96%;
-  margin-top: 30px;
+  margin-top: 50px;
   margin-left: 30px;
   margin-right: 30px;
-  padding: 20px;
-  background-color: #fafafa;
+  padding: 25px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
   overflow-y: auto;
+  border: 2px solid #9d9d9d;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr); /* 2열 그리드로 설정 */
   grid-auto-rows: auto; /* 자동으로 행의 높이 조정 */
   gap: 20px; /* 그리드 아이템 간의 간격 */
-  height:45%;
-  justify-content: center;
+  height:650px;
 }
 
-
 .member-card {
-  width: 96%;
-  height: 120px; 
+  width: 600px;
+  height: 150px;
   margin-left: 30px;
   margin-right: 30px;
   margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border: 2px solid #000000;
+  background-color: #f9f2f8;
+  border: 2px solid #9d9d9d;
   border-radius: 10px;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   cursor: pointer;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
-
-.other-cards {
-  width: 350px;
-  height: 120px; 
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border: 2px solid #000000;
-  border-radius: 10px;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
 
 .member-card h2 {
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 30px; 
 }
 
 .member-card p {
   margin: 0;
-  margin-bottom: 20px;
   font-size: 20px; 
 }
 .member-card:hover {
