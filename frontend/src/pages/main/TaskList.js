@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import TaskForm from './TaskForm'; // 업무 작성을 위한 미니페이지 컴포넌트
+import TaskForm from './TaskForm';
+import TaskForm2 from './TaskForm2';
 import '../../App.css';
 import { IoIosAdd } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
@@ -10,6 +11,7 @@ import { MdOutlineAutoFixNormal } from "react-icons/md";
 
 const TaskList = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [tasks, setTasks] = useState([]);
   const roomId = 'R001'; // 기본 roomId 설정
 
@@ -29,7 +31,8 @@ const TaskList = () => {
     };
 
     fetchTasks();
-  }, [roomId]);  
+  }, [roomId]);
+
   const openForm = () => {
     setIsFormOpen(true);
   };
@@ -38,20 +41,34 @@ const TaskList = () => {
     setIsFormOpen(false);
   };
 
+  const openForm2 = () => {
+    setIsFormOpen2(true);
+  };
+
+  const closeForm2 = () => {
+    setIsFormOpen2(false);
+  };
+
   const handleTaskSubmit = (newTask) => {
     setTasks([newTask, ...tasks]);
     // 폼 닫기
     closeForm();
   };
 
+  const handleTaskSubmit2 = (newTask) => {
+    setTasks([newTask, ...tasks]);
+    // 폼 닫기
+    closeForm2();
+  };
+
   const handleDeleteTask = (id) => {
-    const updatedTasks = tasks.filter(task => task.id !== id); // 선택된 업무를 제외한 업무 배열을 생성합니다.
+    const updatedTasks = tasks.filter(task => task.taskId !== id); // 선택된 업무를 제외한 업무 배열을 생성합니다.
     setTasks(updatedTasks); // 업무 배열을 업데이트합니다.
   };
 
   const handleCheckboxChange = (id) => {
     const updatedTasks = tasks.map(task => {
-      if (task.id === id) {
+      if (task.taskId === id) {
         return {
           ...task,
           completed: !task.completed
@@ -107,7 +124,7 @@ const TaskList = () => {
 
         <div className='progress'>
           <div className='left-content'>  
-            <div className='letter'>업무명</div>
+            <div className='letter'><span>...............</span>업무명</div>
           </div>
           <div className='center-content1'> 
             <div className='letter'>진행상태</div>
@@ -126,7 +143,7 @@ const TaskList = () => {
         {tasks.map((task, index) => (
         <div key={task.id}>
           <div className="task-info">
-            <button onClick={openForm}><MdOutlineAutoFixNormal/></button>
+            <MdOutlineAutoFixNormal onClick={openForm2}/>
             <div className='letter'>{index + 1}</div>
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
@@ -138,7 +155,7 @@ const TaskList = () => {
               <input
                 type="checkbox"
                 checked={task.completed}
-                onChange={() => handleCheckboxChange(task.id)}
+                onChange={() => handleCheckboxChange(task.taskId)}
               />
             </div>
           </div>
@@ -151,6 +168,11 @@ const TaskList = () => {
     {isFormOpen && (
         <div className="mini-page">
           <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} />
+        </div>
+      )}
+    {isFormOpen2 && (
+        <div className="mini-page">
+          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} />
         </div>
       )}
     </div>
