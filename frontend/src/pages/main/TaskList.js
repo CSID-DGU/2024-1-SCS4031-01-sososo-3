@@ -69,7 +69,7 @@ const TaskList = () => {
     return `${year}.${month}.${day}`;
   };
 
-  const formatDate1 = (date) => {
+  const formatDate2 = (date) => {
     const d = new Date(date);
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -130,7 +130,7 @@ const TaskList = () => {
             <div className='letter'>{index + 1}</div>
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
-              <div className='center-content2'><div className='letter'>{formatDate1(task.startDate)} ~ {formatDate1(task.endDate)}</div></div>
+              <div className='center-content2'><div className='letter'>{formatDate2(task.startDate)} ~ {formatDate2(task.endDate)}</div></div>
             <div className='right-content1'>
               <div className='letter'>{formatDate(new Date())}</div>
             </div>
