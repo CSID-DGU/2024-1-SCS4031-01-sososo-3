@@ -8,14 +8,14 @@ const taskSchema = new mongoose.Schema({
  },
   roomId: { 
     type: String,
-    unique:true
+    // unique:true
  },
   businessNumber: { type: String },
   groupCode: { 
     type: String, 
-    unique:true
+    // unique:true
 },
-  taskAuthor: { type: Number },
+  taskAuthor: { type: String },
   taskTitle: {
      type: String,
       maxlength:100 
@@ -24,7 +24,7 @@ const taskSchema = new mongoose.Schema({
   taskAssignee: { type: String },
   startDate: { type: Date },
   endDate: { type: Date },
-  stateCode: { type: Number }
+  stateCode: { type: Number },
 });
 
 const Task= mongoose.models.Task || mongoose.model('Task', taskSchema);

@@ -5,12 +5,12 @@ const roomSchema = new mongoose.Schema({
   roomId: { 
     type: String, 
     required: true,
-    unique:1
+    // unique:1
     },
   businessNum: {type: String}, //사업 번호
   groupCode: { 
         type: String,
-        unique:1
+        // unique:1
     }, //조직코드
   roomName: {
     type: String,

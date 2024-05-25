@@ -8,7 +8,7 @@ const memberSchema = new mongoose.Schema({
   },
   groupCode: {
     type: String,
-    unique: true
+    // unique: true
   },
   employeeName: {
     type: String,
