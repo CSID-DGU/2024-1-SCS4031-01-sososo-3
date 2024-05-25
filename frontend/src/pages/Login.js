@@ -33,30 +33,33 @@ function Login() {
 
       <div className="login-container">
           <h2>SOSOSO</h2>
-          <form onSubmit={handleSubmit} className="w-100">
-              <div className="form-group">
-                  <label htmlFor="email">E-mail  <span>...</span></label>
+          <form onSubmit={handleSubmit}>
+
+              <div className="login-id">
+                  <label htmlFor="email">E-mail</label>
                   <input 
                       type="text" 
                       placeholder='Enter Email' 
                       autoComplete='off' 
                       name='email' 
-                      className='form-control rounded-0' 
+                      className='login-control rounded-0' 
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
                   />
               </div>
-              <div className="form-group">
+              
+              <div className="login-pd">
                   <label htmlFor="password">Password</label>
                   <input 
                       type="password" 
                       placeholder='Enter Password' 
                       name='password' 
-                      className='form-control rounded-0' 
+                      className='login-control rounded-0' 
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
                   />
               </div>
+
               <div>
                   <button type="submit" className="login-button">
                       LOGIN
