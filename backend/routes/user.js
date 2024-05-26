@@ -2,16 +2,18 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user'); // 올바르게 user 모델 불러오기
 
-// member 데이터 생성
+// user 데이터 생성
 router.post('/userspost', (req, res) => {
   const newUser = new User({
-    userid: "user123",
-      name:"최소영",
-      email: "ottffss1005@naver.com",
-      password: pass123,
-      token: "123",
-      tokenExp: "123"
-  });
+    // test data
+      name:"홍기봉",
+      email: "dlij35@sososo.com",
+      password: "11gh41",
+      roomId: "R0160",
+      groupCode: "G0020",
+      userLevel: "1",
+  },
+);
 
   newUser.save()
     .then(() => res.status(201).json({ message: 'User 데이터 저장 성공' }))

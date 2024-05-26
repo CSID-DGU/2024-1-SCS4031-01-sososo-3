@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState} from 'react';
 import { TfiMenu } from "react-icons/tfi";
 import { SlOrganization } from "react-icons/sl";
 import { IoCloseCircleSharp } from "react-icons/io5";

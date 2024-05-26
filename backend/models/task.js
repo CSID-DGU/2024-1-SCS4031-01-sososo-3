@@ -24,7 +24,7 @@ const taskSchema = new mongoose.Schema({
   taskAssignee: { type: String },
   startDate: { type: Date },
   endDate: { type: Date },
-  stateCode: { type: Number },
+  status: { type: String },
 });
 
 const Task= mongoose.models.Task || mongoose.model('Task', taskSchema);
