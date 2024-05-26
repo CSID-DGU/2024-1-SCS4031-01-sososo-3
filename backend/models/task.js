@@ -4,7 +4,7 @@ const taskSchema = new mongoose.Schema({
   taskId: { 
     type: String, 
     required: true,
-    unique:true
+    // unique:true
  },
   roomId: { 
     type: String,
@@ -20,7 +20,7 @@ const taskSchema = new mongoose.Schema({
      type: String,
       maxlength:100 
     },
-  taskContent: { type: String },
+  taskDescription: { type: String },
   taskAssignee: { type: String },
   startDate: { type: Date },
   endDate: { type: Date },
