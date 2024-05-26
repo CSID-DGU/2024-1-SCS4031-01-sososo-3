@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
   groupCode: { type: String, 
-  required: true, 
-  unique:1
+  // required: true, 
+  // unique:1
   },
   groupName: { type: String },
   groupLevel: { type: String }, // 팀:1, 본부:2, 대표이사:3

@@ -4,10 +4,11 @@ const Group = require('../models/group');
 
 router.post('/groupspost', (req, res) => {
   const newGroup = new Group({
-    groupName,
-    groupLevel,
-    parentGroupCode,
-    leaderEmployeeNumber
+    groupCode,
+      groupName,
+      groupLevel, // 팀:1, 본부:2, 대표이사:3
+      parentGroupCode, // 상위조직 groupCode
+      leaderRoomId // 리더 roomId 
   });
 
   newGroup.save()
