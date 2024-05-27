@@ -1,3 +1,4 @@
+const { Attachment } = require('@material-ui/icons');
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
@@ -25,6 +26,7 @@ const taskSchema = new mongoose.Schema({
   startDate: { type: Date },
   endDate: { type: Date },
   status: { type: String },
+  writeDate : { type: Date, default: Date.now }
 });
 
 const Task= mongoose.models.Task || mongoose.model('Task', taskSchema);
