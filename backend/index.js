@@ -58,7 +58,7 @@ app.post('/login', (req, res) => {
         // 비밀번호 확인
         if (user.password === password) {
           // 로그인 성공 시 해당 사용자의 roomId 반환
-          res.json({ status: "Success", roomId: user.roomId });
+          res.json({ status: "Success", roomId: user.roomId, name: user.name, groupCode: user.groupCode, userLevel: user.userLevel });
         } else {
           // 비밀번호가 일치하지 않는 경우
           res.status(401).json({ error: "The password is incorrect" });
