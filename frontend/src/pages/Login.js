@@ -2,12 +2,13 @@ import React, { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { RoomContext } from "../RoomContext";
+
 import "../App.css";
 
 function Login() {    
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setRoomId } = useContext(RoomContext);
+  const { setRoomId, updateName, updateGroupCode, updateUserLevel } = useContext(RoomContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -21,7 +22,14 @@ function Login() {
           console.log(result);
           if(result.data.status === "Success"){
               setRoomId(result.data.roomId);
+              updateName(result.data.name);
+              updateGroupCode(result.data.groupCode);
+              updateUserLevel(result.data.userLevel);
               console.log("roomId:", result.data.roomId);
+              console.log("name:", result.data.name);
+              console.log("groupCode:",result.data.groupCode);
+              console.log("userLevel:",result.data.userLevel);
+              alert("Login Success");
               navigate("/main");
           } else {
               navigate("/login");
