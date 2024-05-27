@@ -11,7 +11,7 @@ import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
 const TaskList = () => {
-  const { roomId } = useContext(RoomContext);
+  const { roomId, groupCode } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -168,12 +168,12 @@ const TaskList = () => {
 
     {isFormOpen && (
         <div className="mini-page">
-          <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} roomId={roomId}  />
+          <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} roomId={roomId} groupCode={groupCode}  />
         </div>
       )}
     {isFormOpen2 && (
         <div className="mini-page">
-          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} />
+          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} groupCode={groupCode} />
         </div>
       )}
     </div>
