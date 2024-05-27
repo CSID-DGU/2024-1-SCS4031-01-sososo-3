@@ -1,6 +1,7 @@
 // App.js
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate} from 'react-router-dom';
+import { RoomProvider } from './RoomContext';
 import MainPage from './pages/main/MainPage'; 
 import TeamPage from './pages/team/TeamPage';
 import DivisionPage from './pages/division/DivisionPage';
@@ -11,7 +12,9 @@ import './App.css';
 
 
 const App = () => {
+
   return (
+    <RoomProvider>
     <Router>
       <div>
         <Routes>
@@ -29,6 +32,7 @@ const App = () => {
 
       </div>
     </Router>
+    </RoomProvider>
   );
 }
 
