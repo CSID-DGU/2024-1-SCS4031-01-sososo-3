@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-const TaskForm = ({ onClose, onTaskSubmit }) => {
+const TaskForm = ({ onClose, onTaskSubmit, roomId }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [author, setAuthor] = useState('');
@@ -10,7 +10,6 @@ const TaskForm = ({ onClose, onTaskSubmit }) => {
   const [attachment, setAttachment] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const roomId = 'R001'; // roomId를 기본 값으로 설정
 
 
   const handleTitleChange = (e) => {
