@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { RoomContext } from "../../RoomContext";
 import TaskForm from './TaskForm';
 import TaskForm2 from './TaskForm2';
 import '../../App.css';
@@ -10,10 +11,10 @@ import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
 const TaskList = () => {
+  const { roomId } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [tasks, setTasks] = useState([]);
-  const roomId = 'R001'; // 기본 roomId 설정
 
   useEffect(() => { // 페이지 로드 시 태스크 목록을 받아오는 useEffect 추가
     const fetchTasks = async () => {
@@ -167,12 +168,12 @@ const TaskList = () => {
 
     {isFormOpen && (
         <div className="mini-page">
-          <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} />
+          <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} roomId={roomId}  />
         </div>
       )}
     {isFormOpen2 && (
         <div className="mini-page">
-          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} />
+          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} />
         </div>
       )}
     </div>
