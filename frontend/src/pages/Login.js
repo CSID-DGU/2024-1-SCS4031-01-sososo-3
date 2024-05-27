@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { RoomContext } from "../RoomContext";
 import "../App.css";
 
 function Login() {    
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setRoomId } = useContext(RoomContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -18,6 +20,8 @@ function Login() {
       .then(result => {
           console.log(result);
           if(result.data.status === "Success"){
+              setRoomId(result.data.roomId);
+              console.log("roomId:", result.data.roomId);
               navigate("/main");
           } else {
               navigate("/login");
