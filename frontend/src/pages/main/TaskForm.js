@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../App.css';
 
-const TaskForm = ({ onClose, onTaskSubmit, roomId }) => {
+const TaskForm = ({ onClose, onTaskSubmit, roomId, groupCode }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [author, setAuthor] = useState('');
@@ -37,7 +37,8 @@ const TaskForm = ({ onClose, onTaskSubmit, roomId }) => {
   const handleAttachmentChange = (e) => {
     const file = e.target.files[0]; // 선택한 파일 가져오기
    setAttachment(file); // 파일 상태 업데이트
-  };
+  };  
+  
 
   const handleStartDateChange = (e) => {
     setStartDate(e.target.value);
@@ -59,7 +60,7 @@ const TaskForm = ({ onClose, onTaskSubmit, roomId }) => {
       startDate: new Date(startDate).toISOString(), // 수정된 부분
       endDate: new Date(endDate).toISOString(), // 수정된 부분
       roomId,
-      groupCode: 'G0001' // groupCode를 기본 값으로 설정
+      groupCode
     };
     
     try {
