@@ -5,13 +5,14 @@ const User = require('../models/user'); // 올바르게 user 모델 불러오기
 // user 데이터 생성
 router.post('/userspost', (req, res) => {
   const newUser = new User({
-    // test data
+    // test data    
       name:"홍기봉",
       email: "dlij35@sososo.com",
       password: "11gh41",
       roomId: "R0160",
       groupCode: "G0020",
       userLevel: "1",
+      
   },
 );
 

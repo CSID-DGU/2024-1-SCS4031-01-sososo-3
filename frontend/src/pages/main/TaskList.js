@@ -15,6 +15,9 @@ const TaskList = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(null); // 선택된 태스크 상태 추가
+  const [selectedTasks, setSelectedTasks] = useState([]); // 체크된 태스크 상태 추가
+  //const roomId = 'R001'; // 기본 roomId 설정
 
   useEffect(() => { // 페이지 로드 시 태스크 목록을 받아오는 useEffect 추가
     const fetchTasks = async () => {
@@ -42,13 +45,16 @@ const TaskList = () => {
     setIsFormOpen(false);
   };
 
-  const openForm2 = () => {
+  const openForm2 = (task) => {
+    setSelectedTask(task); // 선택된 태스크 설정
     setIsFormOpen2(true);
   };
 
   const closeForm2 = () => {
     setIsFormOpen2(false);
+    setSelectedTask(null); // 선택된 태스크 초기화
   };
+
 
   const handleTaskSubmit = (newTask) => {
     setTasks([newTask, ...tasks]);
@@ -56,29 +62,37 @@ const TaskList = () => {
     closeForm();
   };
 
-  const handleTaskSubmit2 = (newTask) => {
-    setTasks([newTask, ...tasks]);
-    // 폼 닫기
+  const handleTaskSubmit2 = (updatedTask) => {
+    setTasks(tasks.map(task => task.taskId === updatedTask.taskId ? updatedTask : task));
     closeForm2();
   };
 
-  const handleDeleteTask = (id) => {
-    const updatedTasks = tasks.filter(task => task.taskId !== id); // 선택된 업무를 제외한 업무 배열을 생성합니다.
-    setTasks(updatedTasks); // 업무 배열을 업데이트합니다.
+  const handleDeleteTask = async () => {
+    const tasksToDelete = selectedTasks;
+    try {
+      await Promise.all(tasksToDelete.map(async (taskId) => {
+        const response = await fetch(`http://localhost:3001/api/tasksdel/${taskId}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) {
+          throw new Error('Failed to delete task');
+        }
+      }));
+      setTasks(tasks.filter(task => !selectedTasks.includes(task.taskId)));
+      setSelectedTasks([]);
+    } catch (error) {
+      console.error('Failed to delete tasks:', error);
+    }
   };
 
   const handleCheckboxChange = (id) => {
-    const updatedTasks = tasks.map(task => {
-      if (task.taskId === id) {
-        return {
-          ...task,
-          completed: !task.completed
-        };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
+    setSelectedTasks(prevSelected => 
+      prevSelected.includes(id)
+        ? prevSelected.filter(taskId => taskId !== id)
+        : [...prevSelected, id]
+    );
   };
+
 
   const formatDate = (date) => {
     const year = date.getFullYear();
@@ -115,7 +129,7 @@ const TaskList = () => {
         <div className='letter' >진행현황</div>
         <div className="button-container">
           <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button>
-          <button className="delete-button" onClick={() => handleDeleteTask()}><MdDeleteOutline/>삭제</button>
+          <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button>
           <button className="share-button"><IoShareSocial/>공유</button>
           <button className="notshare-button"><GiCancel/>공유취소</button>
         </div>
@@ -142,9 +156,9 @@ const TaskList = () => {
         </div>
 
         {tasks.map((task, index) => (
-        <div key={task.id}>
+        <div key={task.taskId}>
           <div className="task-info">
-            <MdOutlineAutoFixNormal onClick={openForm2}/>
+            <MdOutlineAutoFixNormal onClick={() => openForm2(task)}/>
             <div className='letter'>{index + 1}</div>
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
@@ -155,7 +169,7 @@ const TaskList = () => {
             <div className="right-content2">
               <input
                 type="checkbox"
-                checked={task.completed}
+                checked={selectedTasks.includes(task.taskId)}
                 onChange={() => handleCheckboxChange(task.taskId)}
               />
             </div>
@@ -171,9 +185,9 @@ const TaskList = () => {
           <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} roomId={roomId} groupCode={groupCode}  />
         </div>
       )}
-    {isFormOpen2 && (
+    {isFormOpen2 && selectedTask && (
         <div className="mini-page">
-          <TaskForm2 onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} groupCode={groupCode} />
+          <TaskForm2 task={selectedTask} onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} groupCode={groupCode} />
         </div>
       )}
     </div>
