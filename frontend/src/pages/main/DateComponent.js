@@ -8,7 +8,7 @@ import { FaCalendarAlt } from "react-icons/fa";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const DateComponent = () => {
+const DateComponent = ( {onDateChange} ) => {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
@@ -20,12 +20,14 @@ const DateComponent = () => {
     const prevWeek = new Date(date.getTime());
     prevWeek.setDate(prevWeek.getDate() - 7);
     setDate(prevWeek);
+    onDateChange(prevWeek);
   };
 
   const handleNextWeek = () => {
     const nextWeek = new Date(date.getTime());
     nextWeek.setDate(nextWeek.getDate() + 7);
     setDate(nextWeek);
+    onDateChange(nextWeek);
   };
 
   // 날짜를 'YYYY/MM/DD' 형식으로 반환하는 함수
@@ -52,6 +54,7 @@ const DateComponent = () => {
   const handleDateChange = (date) => {
     setDate(date);
     setShowCalendar(false);
+    onDateChange(date);
   };
 
   return (
