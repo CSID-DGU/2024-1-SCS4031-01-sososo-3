@@ -10,7 +10,7 @@ import { GiCancel } from "react-icons/gi";
 import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
-const TaskList = () => {
+const TaskList = ({ selectedDate }) => {
   const { roomId, groupCode } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
@@ -122,6 +122,16 @@ const TaskList = () => {
     }
   };
 
+  const filteredTasks = tasks.filter(task => {
+    const taskDate = new Date(task.writeDate);
+    const startOfWeek = new Date(selectedDate);
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + 6);
+    return taskDate >= startOfWeek && taskDate <= endOfWeek;
+  });
+
+
   return (
     <div className='tasklist-container'>
 
@@ -155,7 +165,7 @@ const TaskList = () => {
           </div>  
         </div>
 
-        {tasks.map((task, index) => (
+        {filteredTasks.map((task, index) => (
         <div key={task.taskId}>
           <div className="task-info">
             <MdOutlineAutoFixNormal onClick={() => openForm2(task)}/>
