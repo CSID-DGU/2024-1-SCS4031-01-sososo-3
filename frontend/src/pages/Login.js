@@ -29,7 +29,10 @@ function Login() {
               console.log("name:", result.data.name);
               console.log("groupCode:",result.data.groupCode);
               console.log("userLevel:",result.data.userLevel);
-              alert("Login Success");
+
+              // 로그인 정보를 Local Storage에 저장
+              localStorage.setItem("loggedInUser", JSON.stringify(result.data));
+
               navigate("/main");
           } else {
               navigate("/login");
