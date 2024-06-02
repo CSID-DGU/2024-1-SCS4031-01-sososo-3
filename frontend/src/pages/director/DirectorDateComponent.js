@@ -7,16 +7,16 @@ import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt } from "react-icons/fa";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FiMinus } from "react-icons/fi";
 
 const DateComponent = () => {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
-//   const navigate = useNavigate();
-//   const handleExit = () => {
-//     navigate('/Director'); // 나가기 버튼 클릭 시 '/Director' 페이지로 이동
-//   };
-
+  const navigate = useNavigate();
+  const handleExit = () => {
+    navigate('/Director'); // 나가기 버튼 클릭 시 '/Director' 페이지로 이동
+  };
   const handlePrevWeek = () => {
     const prevWeek = new Date(date.getTime());
     prevWeek.setDate(prevWeek.getDate() - 7);
@@ -59,9 +59,9 @@ const DateComponent = () => {
     <div>
     <div className='employee-header2'>
 
-       {/* {<button className="exit-button2" onClick={handleExit}>
-          <GiExitDoor /> {}
-        </button> }  */}
+      <h2 className="minus-button" onClick={handleExit}>
+      <FiMinus />{/* 나가기 아이콘 */}
+        </h2>
 {/*         
       <div className='datebutton'>
         <button onClick={handlePrevWeek}>

@@ -18,6 +18,17 @@ export const EmployeeHeader = () => {
     setShowOrganization(!showOrganization);
   }
 
+  const handleLogout = () => {
+    // 로그아웃 상태로 변경하고 로컬 스토리지에서 로그인 정보 삭제
+    localStorage.removeItem("loggedInUser");
+    // 다른 로그아웃 관련 상태를 초기화하는 코드 추가할 수 있음
+    // 예: setShowMyinforSlide(false);
+    // 예: setShowOrganization(false);
+    // 그 후 로그인 페이지로 이동
+    window.location.href = "/login";
+  }
+
+
   return (
     <div className="employee-header">
       <div>
@@ -51,9 +62,9 @@ export const EmployeeHeader = () => {
         </div>
 
         <div className="shortcut">
-          <span className="infor-letter">MyOffice</span> 
-          <span className="infor-letter">MyTeam</span> 
-          <span className="infor-letter">LogOut</span> 
+        <button className="infor-letter" >MyOffice</button>
+        <button className="infor-letter">MyTeam</button>
+        <button className="infor-letter" onClick={handleLogout}>LogOut</button> {/* 로그아웃 버튼 추가 */}
         </div>
       </div>
 

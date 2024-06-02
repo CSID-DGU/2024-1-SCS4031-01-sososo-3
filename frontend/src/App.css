@@ -195,6 +195,13 @@ body {
   fill: #F16906; /* 아이콘 색상 설정 */
 }
 
+.minus-button {
+  color: white;
+  box-shadow: none; /* box-shadow 제거 */
+  text-shadow: none; /* text-shadow 제거 */
+
+}
+
 .center-button {
   flex-grow: 1; /* 중앙 버튼이 헤더의 가운데에 위치하도록 설정 */
   text-align: center;
