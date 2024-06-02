@@ -193,6 +193,7 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
   const [assignee, setAssignee] = useState('');
   const [status, setStatus] = useState('예정');
   const [attachment, setAttachment] = useState(null);
+  const [existingAttachment, setExistingAttachment] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
@@ -203,6 +204,7 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
       setAuthor(task.taskAuthor);
       setAssignee(task.taskAssignee);
       setStatus(task.status);
+      setExistingAttachment(task.attachment);
       setStartDate(task.startDate ? task.startDate.split('T')[0] : '');
       setEndDate(task.endDate ? task.endDate.split('T')[0] : '');
     }
@@ -249,11 +251,14 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
     formData.append('taskAuthor', author);
     formData.append('taskAssignee', assignee);
     formData.append('status', status);
-    formData.append('attachment', attachment);
     formData.append('startDate', startDate);
     formData.append('endDate', endDate);
     formData.append('roomId', roomId);
     formData.append('groupCode', groupCode);
+
+    if (attachment) {
+      formData.append('attachment', attachment);
+    }
 
     try {
       const response = await fetch(`http://localhost:3001/api/tasks/${task.taskId}`, {
@@ -327,6 +332,9 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
             type="file"
             onChange={handleAttachmentChange}
           />
+          {existingAttachment && !attachment && (
+            <p>현재 첨부파일: {existingAttachment.split('/').pop()}</p>
+          )}
         </div>
         <div className="form-group">
           <label>시작일</label>
