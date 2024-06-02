@@ -1,7 +1,7 @@
-// import React, { useState } from 'react';
+// import React, { useState, useEffect } from 'react';
 // import '../../App.css';
 
-// const TaskForm2 = ({ onClose, onTaskSubmit }) => {
+// const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
 //   const [taskTitle, setTaskTitle] = useState('');
 //   const [taskDescription, setTaskDescription] = useState('');
 //   const [author, setAuthor] = useState('');
@@ -12,6 +12,18 @@
 //   const [endDate, setEndDate] = useState('');
 //   const roomId = 'R001'; // roomId를 기본 값으로 설정
 
+//   useEffect(() => {
+//     if (task) {
+//       setTaskTitle(task.taskTitle);
+//       setTaskDescription(task.taskDescription || ''); // taskDescription 설정
+//       setAuthor(task.taskAuthor);
+//       setAssignee(task.taskAssignee);
+//       setStatus(task.status);
+//       setAttachment(task.attachment);
+//       setStartDate(task.startDate ? task.startDate.split('T')[0] : '');
+//       setEndDate(task.endDate ? task.endDate.split('T')[0] : '');
+//     }
+//   }, [task]);
 
 //   const handleTitleChange = (e) => {
 //     setTaskTitle(e.target.value);
@@ -22,22 +34,20 @@
 //   };
 
 //   const handleAuthorChange = (e) => {
-//     setAuthor(e.target.value); // 작성자 입력 값 설정
+//     setAuthor(e.target.value);
 //   };
 
-
-//   const handleAssigneeChange = (e) => { 
-//     setAssignee(e.target.value); //담당자 입력 값 설정
+//   const handleAssigneeChange = (e) => {
+//     setAssignee(e.target.value);
 //   };
 
 //   const handleStatusChange = (e) => {
 //     setStatus(e.target.value);
 //   };
 
-//   // 파일 선택 시 이벤트 핸들러
 //   const handleAttachmentChange = (e) => {
-//     const file = e.target.files[0]; // 선택한 파일 가져오기
-//    setAttachment(file); // 파일 상태 업데이트
+//     const file = e.target.files[0];
+//     setAttachment(file);
 //   };
 
 //   const handleStartDateChange = (e) => {
@@ -50,26 +60,26 @@
 
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
-//     const newTask = {
+//     const updatedTask = {
 //       taskTitle,
 //       taskDescription,
 //       taskAuthor: author,
 //       taskAssignee: assignee,
 //       status,
 //       attachment,
-//       startDate: new Date(startDate).toISOString(), // 수정된 부분
-//       endDate: new Date(endDate).toISOString(), // 수정된 부분
+//       startDate: new Date(startDate).toISOString(),
+//       endDate: new Date(endDate).toISOString(),
 //       roomId,
 //       groupCode: 'G0001' // groupCode를 기본 값으로 설정
 //     };
     
 //     try {
-//       const response = await fetch('http://localhost:3001/api/taskspost', {
-//         method: 'POST',
+//       const response = await fetch(`http://localhost:3001/api/puttasks/${task.taskId}`, {
+//         method: 'PUT',
 //         headers: {
 //           'Content-Type': 'application/json'
 //         },
-//         body: JSON.stringify(newTask)
+//         body: JSON.stringify(updatedTask)
 //       });
 
 //       const data = await response.json();
@@ -77,31 +87,30 @@
 //         onTaskSubmit(data.task); // 서버에서 반환된 태스크 데이터를 사용
 //         onClose();
 //       } else {
-//         console.error('Failed to add task:', data.error);
-//         alert('Failed to add task');
+//         console.error('Failed to update task:', data.error);
+//         alert('Failed to update task');
 //       }
 //     } catch (error) {
 //       console.error('Error:', error);
-//       alert('Failed to add task');
+//       alert('Failed to update task');
 //     }
 //   };
 
 //   return (
 //     <div className="task-form">
-//       <div className='task-title'>작성하기</div>
+//       <div className='task-title'>수정하기</div>
 //       <form onSubmit={handleSubmit}> 
-
 //           <div className='task-text'>
 //           <input
 //             type="text"
-//             placeholder=""
+//             placeholder="제목을 입력하세요."
 //             value={taskTitle}
 //             onChange={handleTitleChange}
 //             required
 //           />
 //           <textarea
 //             type="text"
-//             placeholder=""
+//             placeholder="내용을 입력하세요."
 //             value={taskDescription}
 //             onChange={handleDescriptionChange}
 //             required
@@ -113,7 +122,7 @@
 //           <input
 //             type="text"
 //             value={author}
-//             onChange={handleAuthorChange} //작성자 변경 핸들러 사용
+//             onChange={handleAuthorChange}
 //             required
 //           />
 //         </div>
@@ -167,20 +176,17 @@
 
 //         <button type="button" onClick={onClose}>취소</button>
 //         <button type="submit">수정</button>
-
 //       </form>
 //     </div>
 //   );
 // };
-
-
 
 // export default TaskForm2;
 
 import React, { useState, useEffect } from 'react';
 import '../../App.css';
 
-const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
+const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [author, setAuthor] = useState('');
@@ -189,16 +195,14 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
   const [attachment, setAttachment] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const roomId = 'R001'; // roomId를 기본 값으로 설정
 
   useEffect(() => {
     if (task) {
       setTaskTitle(task.taskTitle);
-      setTaskDescription(task.taskDescription || ''); // taskDescription 설정
+      setTaskDescription(task.taskDescription);
       setAuthor(task.taskAuthor);
       setAssignee(task.taskAssignee);
       setStatus(task.status);
-      setAttachment(task.attachment);
       setStartDate(task.startDate ? task.startDate.split('T')[0] : '');
       setEndDate(task.endDate ? task.endDate.split('T')[0] : '');
     }
@@ -239,26 +243,22 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedTask = {
-      taskTitle,
-      taskDescription,
-      taskAuthor: author,
-      taskAssignee: assignee,
-      status,
-      attachment,
-      startDate: new Date(startDate).toISOString(),
-      endDate: new Date(endDate).toISOString(),
-      roomId,
-      groupCode: 'G0001' // groupCode를 기본 값으로 설정
-    };
-    
+    const formData = new FormData();
+    formData.append('taskTitle', taskTitle);
+    formData.append('taskDescription', taskDescription);
+    formData.append('taskAuthor', author);
+    formData.append('taskAssignee', assignee);
+    formData.append('status', status);
+    formData.append('attachment', attachment);
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    formData.append('roomId', roomId);
+    formData.append('groupCode', groupCode);
+
     try {
-      const response = await fetch(`http://localhost:3001/api/puttasks/${task.taskId}`, {
+      const response = await fetch(`http://localhost:3001/api/tasks/${task.taskId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedTask)
+        body: formData
       });
 
       const data = await response.json();
@@ -278,8 +278,8 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
   return (
     <div className="task-form">
       <div className='task-title'>수정하기</div>
-      <form onSubmit={handleSubmit}> 
-          <div className='task-text'>
+      <form onSubmit={handleSubmit}>
+        <div className='task-text'>
           <input
             type="text"
             placeholder="제목을 입력하세요."
@@ -294,10 +294,9 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             onChange={handleDescriptionChange}
             required
           />
-          </div>
-        
+        </div>
         <div className="form-group">
-           <label>작성자</label>
+          <label>작성자</label>
           <input
             type="text"
             value={author}
@@ -305,17 +304,15 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
-        <div className = "form-group">
+        <div className="form-group">
           <label>담당자</label>
-          <input 
+          <input
             type="text"
             value={assignee}
             onChange={handleAssigneeChange}
             required
-            />
+          />
         </div>
-
         <div className="form-group">
           <label>진행상태</label>
           <select value={status} onChange={handleStatusChange}>
@@ -323,8 +320,7 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             <option value="회의">회의</option>
             <option value="완료">완료</option>
           </select>
-          </div>
-
+        </div>
         <div className="form-group">
           <label>파일첨부</label>
           <input
@@ -332,7 +328,6 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             onChange={handleAttachmentChange}
           />
         </div>
-
         <div className="form-group">
           <label>시작일</label>
           <input
@@ -342,7 +337,6 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
         <div className='form-group'>
           <label>종료일</label>
           <input
@@ -352,7 +346,6 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
         <button type="button" onClick={onClose}>취소</button>
         <button type="submit">수정</button>
       </form>
