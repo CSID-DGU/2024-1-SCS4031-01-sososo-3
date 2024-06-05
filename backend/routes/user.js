@@ -28,4 +28,20 @@ router.get('/usersget', (req, res) => {
     .catch((err) => res.status(500).json({ error: 'User 데이터 가져오기 실패', details: err }));
 });
 
+// 특정 그룹 코드에 해당하는 사용자 데이터를 반환하는 엔드포인트
+router.get('/users/:groupCode', async (req, res) => {
+  const { groupCode } = req.params;
+
+  try {
+      // 해당 그룹 코드에 해당하는 사용자 데이터를 찾습니다.
+      const users = await User.find({ groupCode });
+      
+      // 사용자 데이터를 JSON 형식으로 응답합니다.
+      res.json(users);
+  } catch (err) {
+      // 오류가 발생하면 오류 메시지를 반환합니다.
+      res.status(500).json({ error: '사용자 데이터 가져오기 실패', details: err });
+  }
+});
+
 module.exports = router;

@@ -33,7 +33,7 @@ function Login() {
               // 로그인 정보를 Local Storage에 저장
               localStorage.setItem("loggedInUser", JSON.stringify(result.data));
 
-              navigate("/main");
+              navigate(`/${result.data.roomId}`);
           } else {
               navigate("/login");
               alert("You are not registered to this service");

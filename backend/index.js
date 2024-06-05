@@ -26,10 +26,12 @@ app.listen(port, () => console.log(`Server is running on http://localhost:${port
 const memberRouter = require('./routes/member'); //member라우터 가져오기
 const userRouter = require('./routes/user'); //user라우터 가져오기
 const taskRouter = require('./routes/task');
+const groupRouter = require('./routes/group');
 
 app.use('/api', memberRouter); //member라우터 등록
 app.use('/api', userRouter); //user라우터 등록
 app.use('/api', taskRouter); //task 라우터 등록
+app.use('/api', groupRouter);
 
 //몽구스 연결
 const mongoose = require('mongoose');

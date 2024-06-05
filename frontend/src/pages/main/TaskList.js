@@ -71,7 +71,7 @@ const TaskList = ({ selectedDate }) => {
     const tasksToDelete = selectedTasks;
     try {
       await Promise.all(tasksToDelete.map(async (taskId) => {
-        const response = await fetch(`http://localhost:3001/api/tasksdel/${taskId}`, {
+        const response = await fetch(`/tasksdel/${taskId}`, {
           method: 'DELETE'
         });
         if (!response.ok) {
@@ -149,17 +149,17 @@ const TaskList = ({ selectedDate }) => {
 
         <div className='progress'>
           <div className='left-content'>  
-            <div className='letter'><span>...............</span>업무명</div>
+            <div className='letter'><span></span>업무명</div>
           </div>
           <div className='center-content1'> 
-            <div className='letter'>진행상태</div>
+            <div className='letter'>상태</div>
           </div>
           <div className='center-content2'> 
             <div className='letter'>기간</div>
           </div>
-          <div className='right-content1'> 
+          {/* <div className='right-content1'> 
             <div className='letter'>작성일</div>
-          </div>
+          </div> */}
           <div className='right-content2'>
             <FaRegSquareCheck/>
           </div>  
@@ -174,7 +174,7 @@ const TaskList = ({ selectedDate }) => {
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
               <div className='center-content2'><div className='letter'>{formatDate2(task.startDate)} ~ {formatDate2(task.endDate)}</div></div>
             <div className='right-content1'>
-              <div className='letter'>{formatDate(new Date())}</div>
+              {/* <div className='letter'>{formatDate(new Date())}</div> */}
             </div>
             <div className="right-content2">
               <input

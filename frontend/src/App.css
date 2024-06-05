@@ -110,18 +110,20 @@ body {
   background-color: #eceaea;  
 }
 .infor-letter {
-  margin-left: 20px;
   font-size: 25px; 
   color: #F16906;
   font-family: 'Arial', sans-serif;
   font-weight: bolder;
   font-style: italic;
-  align-items: center;
   margin-bottom: 30px;
+  border: none; 
 }
+
+
 .infor-letter:hover {
   color: rgb(87, 87, 87);
 }
+
 
 /* EmployeeHeader2 */
 .employee-header2 {

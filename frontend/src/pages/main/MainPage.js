@@ -7,7 +7,7 @@ import DateComponent from './DateComponent';
 
 const MainPage = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
+  
   return (
     <div>
       <EmployeeHeader />

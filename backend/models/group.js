@@ -11,4 +11,5 @@ const groupSchema = new mongoose.Schema({
   leaderRoomId: { type: String } // 리더 roomId 
 });
 
-module.exports = mongoose.model('Group', groupSchema);
+const Group = mongoose.models.Group || mongoose.model('Group', groupSchema);
+module.exports = Group;
