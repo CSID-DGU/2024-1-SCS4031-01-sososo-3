@@ -26,7 +26,8 @@ const taskSchema = new mongoose.Schema({
   startDate: { type: Date },
   endDate: { type: Date },
   status: { type: String },
-  writeDate : { type: Date, default: Date.now }
+  writeDate : { type: Date, default: Date.now },
+  attachment: { type: String } // 첨부 파일 경로 또는 URL 필드 추가
 });
 
 const Task= mongoose.models.Task || mongoose.model('Task', taskSchema);
