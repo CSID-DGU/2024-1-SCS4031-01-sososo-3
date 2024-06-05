@@ -10,8 +10,8 @@ import { GiCancel } from "react-icons/gi";
 import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
-const TaskList = ({ selectedDate }) => {
-  const { roomId, groupCode } = useContext(RoomContext);
+const TaskList = ({ selectedDate, roomId }) => {
+  const { groupCode } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [tasks, setTasks] = useState([]);
