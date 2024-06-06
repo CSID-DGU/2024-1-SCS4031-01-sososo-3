@@ -112,7 +112,7 @@ const TaskList2 = ({ selectedDate, roomId }) => {
     switch (status) {
       case '예정':
         return 'status-scheduled';
-      case '회의':
+      case '진행':
         return 'status-meeting';
       case '완료':
         return 'status-completed';
@@ -135,7 +135,7 @@ const TaskList2 = ({ selectedDate, roomId }) => {
     <div className='tasklist-container'>
 
       <div className='tasklist-container2'>
-        <div className='letter' >진행현황</div>
+        <div className='letter' ></div>
         <div className="button-container">
           {/* <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button> */}
           {/* <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button> */}
