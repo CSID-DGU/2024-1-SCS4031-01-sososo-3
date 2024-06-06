@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { RoomContext } from "../RoomContext";
-
+import { GoPerson } from 'react-icons/go';
+import { CiLock } from 'react-icons/ci';
 import "../App.css";
 
 function Login() {    
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // 오류 메시지 상태 변수 추가
   const { setRoomId, updateName, updateGroupCode, updateUserLevel } = useContext(RoomContext);
   const navigate = useNavigate();
 
@@ -35,25 +37,25 @@ function Login() {
 
               navigate(`/${result.data.roomId}`);
           } else {
-              navigate("/login");
-              alert("You are not registered to this service");
+              setErrorMessage("아이디 또는 비밀번호가 맞지 않아요. 다시 입력해주세요.");
           }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+          console.log(err);
+          setErrorMessage("아이디 또는 비밀번호가 맞지 않아요. 다시 입력해주세요."); // 오류 메시지 설정
+      });
   }
 
   return (
     <div className="app">
-
       <div className="login-container">
           <h2>SOSOSO</h2>
           <form onSubmit={handleSubmit}>
-
-              <div className="login-id">
-                  <label htmlFor="email">E-mail</label>
+              <div className="input-container">
+                  <GoPerson className="input-icon" />
                   <input 
                       type="text" 
-                      placeholder='Enter Email' 
+                      placeholder='이메일을 입력하세요' 
                       autoComplete='off' 
                       name='email' 
                       className='login-control rounded-0' 
@@ -62,17 +64,19 @@ function Login() {
                   />
               </div>
               
-              <div className="login-pd">
-                  <label htmlFor="password">Password</label>
+              <div className="input-container">
+                  <CiLock className="input-icon" />
                   <input 
                       type="password" 
-                      placeholder='Enter Password' 
+                      placeholder='비밀번호를 입력하세요' 
                       name='password' 
                       className='login-control rounded-0' 
                       onChange={(e) => setPassword(e.target.value)}
                       value={password}
                   />
               </div>
+
+              {errorMessage && <p className="error-message">{errorMessage}</p>} {/* 오류 메시지 출력 */}
 
               <div>
                   <button type="submit" className="login-button">
