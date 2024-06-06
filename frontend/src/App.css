@@ -946,56 +946,66 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.login-id, .login-pd {
-  margin-bottom: 1.8rem;
-  width: 110%;
-  display: inline-block;
-  margin-left: 50px;
-  text-align: left;
-  color: #000000;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-weight: bold;
+/* 입력 필드 스타일 */
+.login-control {
+  width: 350px; /* 입력 필드의 너비를 조정 */
+  padding: 15px; /* 패딩을 추가하여 입력 필드 내부 여백 설정 */
+  margin: 10px 0; /* 위아래 마진을 추가하여 입력 필드 간 간격 설정 */
+  box-sizing: border-box; /* 패딩과 보더가 포함된 너비 계산 방식 사용 */
+  border: 1px solid #ccc; /* 입력 필드의 보더 설정 */
+  border-radius: 4px; /* 입력 필드의 모서리를 둥글게 설정 */
+  font-size: 16px; /* 폰트 크기 설정 */
 }
 
-.login-id label {
-  margin-bottom: 0;
-  flex: 2; /* 레이블이 공간을 차지하도록 설정 */
-  padding-right: 0.8rem; /* 입력 필드와의 간격 추가 */
-  align-items: center;
-  margin-left: 11%;
-  color: #000000;
-}
-.login-pd label {
-  margin-bottom: 0;
-  flex: 2; /* 레이블이 공간을 차지하도록 설정 */
-  text-align: right; /* 레이블 텍스트를 오른쪽 정렬 */
-  padding-right: 0.8rem; /* 입력 필드와의 간격 추가 */
-  align-items: center;
-  margin-left: 5%;
-  color: #000000;
+/* 둥근 모서리 */
+.rounded-0 {
+  border-radius: 2px;
 }
 
-.login-container .login-control {
-  flex: 3;
-  border-radius: 0.5rem;
-}
-
-
-
-.login-container .login-button {
-  width: 100%; 
-  height: 30px;
+/* 아이콘과 함께 사용되는 입력 필드 스타일 */
+.input-container {
   display: flex;
-  justify-content: center;
   align-items: center;
-  border-radius: 1rem;
-  background-color: #146DAE;
-  color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 15px;
-  font-weight: bold;
+  margin-bottom: 15px;
+  position: relative;
+  width: 100%; /* 컨테이너의 너비를 100%로 설정 */
 }
 
-.login-container .login-button:hover {
-  background-color: #F16906;
+.input-container .login-control {
+  flex: 1; /* 플렉스 컨테이너 내에서 입력 필드가 나머지 공간을 차지하도록 설정 */
+  padding-left: 40px; /* 아이콘과 입력 필드 사이의 패딩 추가 */
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px; /* 아이콘을 입력 필드의 왼쪽에 배치 */
+  font-size: 1.5em; /* 아이콘 크기 설정 */
+  pointer-events: none; /* 아이콘이 클릭되지 않도록 설정 */
+}
+
+/* 오류 메시지 스타일 */
+.error-message {
+  color: red; /* 오류 메시지를 빨간색으로 표시 */
+  font-size: 14px; /* 폰트 크기 설정 */
+  margin-top: 10px; /* 위쪽 마진 설정 */
+  text-align: center;
+  width: 100%;
+
+}
+
+/* 로그인 버튼 스타일 */
+.login-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #0064FF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background-color: #202632;
 }
