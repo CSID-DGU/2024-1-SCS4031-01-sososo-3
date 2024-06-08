@@ -44,4 +44,20 @@ router.get('/users/:groupCode', async (req, res) => {
   }
 });
 
+// Get group code by room ID
+router.get('/groupcode/:roomId', async (req, res) => {
+  const { roomId } = req.params;
+
+  try {
+    const user = await User.findOne({ roomId });
+    if (user) {
+      res.json({ groupCode: user.groupCode });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to retrieve group code', details: err });
+  }
+});
+
 module.exports = router;
