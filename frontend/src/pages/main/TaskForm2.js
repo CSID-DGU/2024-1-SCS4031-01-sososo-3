@@ -180,25 +180,25 @@
 import React, { useState, useEffect } from 'react';
 import '../../App.css';
 
-const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
+const TaskForm2 = ({ task, onClose, onTaskSubmit, roomId, groupCode }) => {
   const [taskTitle, setTaskTitle] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
   const [author, setAuthor] = useState('');
   const [assignee, setAssignee] = useState('');
   const [status, setStatus] = useState('예정');
   const [attachment, setAttachment] = useState(null);
+  const [existingAttachment, setExistingAttachment] = useState(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const roomId = 'R001'; // roomId를 기본 값으로 설정
 
   useEffect(() => {
     if (task) {
       setTaskTitle(task.taskTitle);
-      setTaskDescription(task.taskDescription || ''); // taskDescription 설정
+      setTaskDescription(task.taskDescription);
       setAuthor(task.taskAuthor);
       setAssignee(task.taskAssignee);
       setStatus(task.status);
-      setAttachment(task.attachment);
+      setExistingAttachment(task.attachment);
       setStartDate(task.startDate ? task.startDate.split('T')[0] : '');
       setEndDate(task.endDate ? task.endDate.split('T')[0] : '');
     }
@@ -239,26 +239,25 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const updatedTask = {
-      taskTitle,
-      taskDescription,
-      taskAuthor: author,
-      taskAssignee: assignee,
-      status,
-      attachment,
-      startDate: new Date(startDate).toISOString(),
-      endDate: new Date(endDate).toISOString(),
-      roomId,
-      groupCode: 'G0001' // groupCode를 기본 값으로 설정
-    };
-    
+    const formData = new FormData();
+    formData.append('taskTitle', taskTitle);
+    formData.append('taskDescription', taskDescription);
+    formData.append('taskAuthor', author);
+    formData.append('taskAssignee', assignee);
+    formData.append('status', status);
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    formData.append('roomId', roomId);
+    formData.append('groupCode', groupCode);
+
+    if (attachment) {
+      formData.append('attachment', attachment);
+    }
+
     try {
-      const response = await fetch(`http://localhost:3001/api/puttasks/${task.taskId}`, {
+      const response = await fetch(`http://localhost:3001/api/tasks/${task.taskId}`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(updatedTask)
+        body: formData
       });
 
       const data = await response.json();
@@ -278,8 +277,8 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
   return (
     <div className="task-form">
       <div className='task-title'>수정하기</div>
-      <form onSubmit={handleSubmit}> 
-          <div className='task-text'>
+      <form onSubmit={handleSubmit}>
+        <div className='task-text'>
           <input
             type="text"
             placeholder="제목을 입력하세요."
@@ -294,10 +293,9 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             onChange={handleDescriptionChange}
             required
           />
-          </div>
-        
+        </div>
         <div className="form-group">
-           <label>작성자</label>
+          <label>작성자</label>
           <input
             type="text"
             value={author}
@@ -305,34 +303,33 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
-        <div className = "form-group">
+        <div className="form-group">
           <label>담당자</label>
-          <input 
+          <input
             type="text"
             value={assignee}
             onChange={handleAssigneeChange}
             required
-            />
+          />
         </div>
-
         <div className="form-group">
-          <label>상태</label>
+          <label>진행상태</label>
           <select value={status} onChange={handleStatusChange}>
             <option value="예정">예정</option>
-            <option value="진행">진행</option>
+            <option value="회의">회의</option>
             <option value="완료">완료</option>
           </select>
-          </div>
-
+        </div>
         <div className="form-group">
           <label>파일첨부</label>
           <input
             type="file"
             onChange={handleAttachmentChange}
           />
+          {existingAttachment && !attachment && (
+            <p>현재 첨부파일: {existingAttachment.split('/').pop()}</p>
+          )}
         </div>
-
         <div className="form-group">
           <label>시작일</label>
           <input
@@ -342,7 +339,6 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
         <div className='form-group'>
           <label>종료일</label>
           <input
@@ -352,7 +348,6 @@ const TaskForm2 = ({ task, onClose, onTaskSubmit }) => {
             required
           />
         </div>
-
         <button type="button" onClick={onClose}>취소</button>
         <button type="submit">수정</button>
       </form>
