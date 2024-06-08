@@ -71,7 +71,7 @@ const TaskList = ({ selectedDate, roomId }) => {
     const tasksToDelete = selectedTasks;
     try {
       await Promise.all(tasksToDelete.map(async (taskId) => {
-        const response = await fetch(`/tasksdel/${taskId}`, {
+        const response = await fetch(`http://localhost:3001/api/tasksdel/${taskId}`, {
           method: 'DELETE'
         });
         if (!response.ok) {
