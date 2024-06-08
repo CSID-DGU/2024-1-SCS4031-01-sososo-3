@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import '../../App.css';
 import ShareHeader from './ShareHeader';
 import ShareTaskList from './ShareTaskList';
-import ShareDate from './ShareDate';
+import ShareDate3 from './ShareDate3';
 
 const SharePage = () => {
   const { leaderRoomId } = useParams();
@@ -32,7 +32,7 @@ const SharePage = () => {
   return (
     <div>
       <ShareHeader />
-      <ShareDate groupCode={groupCode}/>
+      <ShareDate3 groupCode={groupCode}/>
       <ShareTaskList />
     </div>
   );

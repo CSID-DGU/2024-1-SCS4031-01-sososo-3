@@ -13,9 +13,9 @@ const DateComponent = ({ onDateChange, groupCode}) => {
   const navigate = useNavigate();
   const handleExit = () => {
     if (groupCode) {
-      navigate(`/team/${groupCode}`); // Navigate to /team/groupCode
+      navigate(`/division/${groupCode}`); // Navigate to /team/groupCode
     } else {
-      navigate('/team'); // Fallback in case groupCode is not available
+      navigate('/division'); // Fallback in case groupCode is not available
     }
   };
   

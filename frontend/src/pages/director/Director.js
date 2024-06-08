@@ -34,7 +34,7 @@ const Director = () => {
         <div>
             {teamMember && (
                 <div key={teamMember.groupCode} className="member-link-container first-card">
-                    <Link to={`/division/${teamMember.leaderRoomId}`} className="member-link">
+                    <Link to={`/share3/${teamMember.leaderRoomId}`} className="member-link">
                         <div className="member-card first-card">
                             <h2>
                                 <BsPersonWorkspace />

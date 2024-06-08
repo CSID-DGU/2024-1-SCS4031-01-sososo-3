@@ -41,7 +41,7 @@ const DivisionPage = () => {
             {/* 시스템사업본부 박스를 컨테이너 밖으로 렌더링 */}
             {teamMember && (
                 <div key={teamMember.groupCode} className="member-link-container first-card">
-                    <Link to={`/division/${teamMember.leaderRoomId}`} className="member-link">
+                    <Link to={`/share2/${teamMember.leaderRoomId}`} className="member-link">
                         <div className="member-card first-card">
                             <h2>
                                 <SiMicrosoftteams />

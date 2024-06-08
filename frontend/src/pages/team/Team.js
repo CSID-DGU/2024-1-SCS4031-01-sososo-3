@@ -46,7 +46,7 @@ const Team = () => {
             {/* 팀 데이터 렌더링 */}
             {teamInf && (
                 <div key={team.groupCode} className="member-link-container first-card">
-                    <Link to={`/team/${team.leaderRoomId}`} className="member-link">
+                    <Link key={team.leaderRoomId} to={`/share1/${team.leaderRoomId}`} className="member-link">
                     <div className="member-card first-card">
                         <h2>
                             <IoPersonOutline />
