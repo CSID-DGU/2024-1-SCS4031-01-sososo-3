@@ -6,13 +6,17 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 
-const DateComponent = ({ onDateChange = () => {} }) => { // 기본 함수 제공
+const DateComponent = ({ parentGroupCode, onDateChange = () => {} }) => { 
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
   const navigate = useNavigate();
   const handleExit = () => {
-    navigate('/Division'); // 나가기 버튼 클릭 시 '/Division' 페이지로 이동
+    if (parentGroupCode) {
+      navigate(`/division/${parentGroupCode}`);
+    } else {
+      navigate('/division'); // Fallback in case parentGroupCode is not available
+    }
   };
 
   const handlePrevWeek = () => {
