@@ -226,4 +226,24 @@ router.put('/tasks/:taskId', upload.single('attachment'), async (req, res) => {
   }
 });
 
+// Task 데이터 삭제
+
+router.delete('/tasksdel/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+
+  try {
+    const deletedTask = await Task.findOneAndDelete({ taskId });
+
+    if (!deletedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    console.log('Task deleted:', deletedTask);
+    res.json({ message: 'Task 데이터 삭제 성공', task: deletedTask });
+  } catch (err) {
+    console.error('Error deleting task:', err.message, err.stack);
+    res.status(500).json({ error: 'Task 데이터 삭제 실패', details: err.message });
+  }
+});
+
 module.exports = router;
