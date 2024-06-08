@@ -6,13 +6,17 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 
-const DateComponent = ({ onDateChange }) => {
+const DateComponent = ({ onDateChange, groupCode }) => {
   const [date, setDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
 
   const navigate = useNavigate();
   const handleExit = () => {
-    navigate('/team'); // 나가기 버튼 클릭 시 '/team' 페이지로 이동
+    if (groupCode) {
+      navigate(`/team/${groupCode}`); // Navigate to /team/groupCode
+    } else {
+      navigate('/team'); // Fallback in case groupCode is not available
+    }
   };
 
   const handlePrevWeek = () => {
