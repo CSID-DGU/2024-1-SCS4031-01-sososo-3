@@ -8,6 +8,7 @@ import ShareDate from './ShareDate';
 const SharePage = () => {
   const { leaderRoomId } = useParams();
   const [groupCode, setGroupCode] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     const fetchGroupCode = async () => {
@@ -32,8 +33,8 @@ const SharePage = () => {
   return (
     <div>
       <ShareHeader />
-      <ShareDate groupCode={groupCode}/>
-      <ShareTaskList groupCode={groupCode} />
+      <ShareDate onDateChange={setSelectedDate} groupCode={groupCode}/>
+      <ShareTaskList selectedDate={selectedDate} groupCode={groupCode} />
     </div>
   );
 }
