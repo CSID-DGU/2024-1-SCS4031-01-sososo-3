@@ -148,10 +148,10 @@ const TaskList = ({ selectedDate, roomId }) => {
       <div className='tasklist'>
 
         <div className='progress'>
-          <div className='left-content'>  
+          <div className='left-content1'>  
             <div className='letter'><span></span>업무명</div>
           </div>
-          <div className='center-content1'> 
+          <div className='center-content'> 
             <div className='letter'>상태</div>
           </div>
           <div className='center-content2'> 
@@ -173,9 +173,9 @@ const TaskList = ({ selectedDate, roomId }) => {
               <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
               <div className='center-content2'><div className='letter'>{formatDate2(task.startDate)} ~ {formatDate2(task.endDate)}</div></div>
-            <div className='right-content1'>
+            {/* <div className='right-content1'> */}
               {/* <div className='letter'>{formatDate(new Date())}</div> */}
-            </div>
+            {/* </div> */}
             <div className="right-content2">
               <input
                 type="checkbox"
