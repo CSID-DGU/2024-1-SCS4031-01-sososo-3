@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { IoPersonOutline } from 'react-icons/io5';
+import { IoPeopleOutline } from 'react-icons/io5';
 import '../../App.css';
 
 const Team = () => {
@@ -42,14 +43,14 @@ const Team = () => {
 
 
     return (
-        <div>
+        <div className="organization">
             {/* 팀 데이터 렌더링 */}
             {teamInf && (
-                <div key={team.groupCode} className="member-link-container first-card">
+                <div key={team.groupCode}>
                     <Link key={team.leaderRoomId} to={`/share1/${team.leaderRoomId}`} className="member-link">
-                    <div className="member-card first-card">
+                    <div className="member-card1">
                         <h2>
-                            <IoPersonOutline />
+                            <IoPeopleOutline /><span> </span>
                             {team.groupName}
                         </h2>
                         <p>Team</p>
@@ -61,11 +62,11 @@ const Team = () => {
             {/* 멤버 데이터 렌더링 */}
             <div className="organization-container">
                 {teamMembers.map(member => (
-                    <div key={member._id} className="member-link-container other-cards">
+                    <div key={member._id}>
                         <Link to={`/${member.roomId}`} className="member-link">
-                            <div className="member-card other-cards">
+                            <div className="member-card2">
                                 <h2>
-                                    <IoPersonOutline />
+                                    <IoPersonOutline /><span> </span>
                                     {member.name}
                                 </h2>
                                 {/* <p>{member.position}</p> */}

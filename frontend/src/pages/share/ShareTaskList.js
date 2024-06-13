@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import TaskForm from './TaskForm';
 import '../../App.css';
-import { IoIosAdd } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
 import { GiCancel } from "react-icons/gi";
 import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
-const ShareTaskList = () => {
-  const [isFormOpen, setIsFormOpen] = useState(false);
+const ShareTaskList = ({groupCode}) => {
   const [tasks, setTasks] = useState([]);
-  const [taskId, setTaskId] = useState(1); //
+  // const [taskId, setTaskId] = useState(1);
+  const [groupName, setGroupName] = useState('');
 
-  const openForm = () => {
-    setIsFormOpen(true);
-  };
-
-  const closeForm = () => {
-    setIsFormOpen(false);
-  };
-
-  const handleTaskSubmit = (newTask) => {
-    setTasks([newTask, ...tasks]);
-    // 폼 닫기
-    closeForm();
-  };
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+          // 그룹 데이터 가져오기
+          const response = await fetch(`http://localhost:3001/api/groupsget`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch group data');
+          }
+          const data = await response.json();
+          const currentTeam = data.find(group => group.groupCode === groupCode);
+          if (currentTeam) {
+            setGroupName(currentTeam.groupName);
+          } else {
+            throw new Error('Group not found');
+          }
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+    fetchTeamData();
+  }, []);
 
   const handleDeleteTask = (id) => {
     const updatedTasks = tasks.filter(task => task.id !== id); // 선택된 업무를 제외한 업무 배열을 생성합니다.
@@ -69,13 +76,8 @@ const ShareTaskList = () => {
     <div className='share-align'>
 
     <div className='share-panel'>
-        <div className="profile">
-          {/* 팀정보 db연결 */}
-        </div>
-
-        <div className="shortcut">
-          <span className="infor-letter">MyOffice</span> 
-          <span className="infor-letter">MyTeam</span>
+        <div className="teamname">
+          {groupName}
         </div>
     </div>
     

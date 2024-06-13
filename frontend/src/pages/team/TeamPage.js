@@ -31,6 +31,7 @@ const TeamPage = () => {
 
     fetchTeamData();
   }, [groupCode]);
+  
   return (
     <div>
       <TeamHeader />

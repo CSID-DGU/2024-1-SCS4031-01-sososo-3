@@ -33,11 +33,11 @@ const Director = () => {
     return (
         <div>
             {teamMember && (
-                <div key={teamMember.groupCode} className="member-link-container first-card">
+                <div key={teamMember.groupCode}>
                     <Link to={`/share3/${teamMember.leaderRoomId}`} className="member-link">
-                        <div className="member-card first-card">
+                        <div className="member-card1">
                             <h2>
-                                <BsPersonWorkspace />
+                                <BsPersonWorkspace /><span> </span>
                                 {teamMember.groupName}
                             </h2>
                             <p>Director</p>
@@ -48,14 +48,14 @@ const Director = () => {
 
             <div className="organization-container">
                 {otherMembers.map(member => (
-                    <div key={member.groupCode} className="member-link-container other-cards">
+                    <div key={member.groupCode}>
                         <Link to={`/division/${member.groupCode}`} className="member-link">
-                            <div className="member-card other-cards">
+                            <div className="member-card2">
                                 <h2>
                                     <SiMicrosoftteams />
                                     {member.groupName}
                                 </h2>
-                                <p>Division</p>
+                                {/* <p>Division</p> */}
                             </div>
                         </Link>
                     </div>

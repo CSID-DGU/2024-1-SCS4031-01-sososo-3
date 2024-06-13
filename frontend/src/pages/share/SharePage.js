@@ -33,7 +33,7 @@ const SharePage = () => {
     <div>
       <ShareHeader />
       <ShareDate groupCode={groupCode}/>
-      <ShareTaskList />
+      <ShareTaskList groupCode={groupCode} />
     </div>
   );
 }

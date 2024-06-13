@@ -3,16 +3,48 @@ import { TfiMenu } from "react-icons/tfi";
 import { SlOrganization } from "react-icons/sl";
 import { IoCloseCircleSharp } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { useNavigate } from 'react-router-dom';
 import CompanyOrganization from '../CompanyOrganization';
 import '../../App.css';
 
 export const EmployeeHeader = () => {
-  const navigate = useNavigate(); // useNavigate 사용하기
   const [showOrganization, setShowOrganization] = useState(false); // 조직검색
   const [showMyinforSlide, setShowMyinforSlide] = useState(false); // 내정보 슬라이드
   const organizationRef = useRef(null);
   const myInforRef = useRef(null);
+  const [userName, setUserName] = useState('');
+  const [groupName, setGroupName] = useState('');
+
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        // 로컬 스토리지에서 로그인한 유저 정보 가져오기
+        const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (loggedInUser && loggedInUser.name && loggedInUser.groupCode) {
+          setUserName(loggedInUser.name);
+
+          // 그룹 데이터 가져오기
+          const response = await fetch(`http://localhost:3001/api/groupsget`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch group data');
+          }
+          const data = await response.json();
+
+          // 현재 팀 데이터 찾기
+          const currentTeam = data.find(group => group.groupCode === loggedInUser.groupCode);
+          if (currentTeam) {
+            setGroupName(currentTeam.groupName);
+          } else {
+            throw new Error('Group not found');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+
 
   const handleMyinfor = () => {
     setShowMyinforSlide(!showMyinforSlide); 
@@ -30,6 +62,11 @@ export const EmployeeHeader = () => {
       setShowMyinforSlide(false);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "/login";
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -65,15 +102,20 @@ export const EmployeeHeader = () => {
           </div>   
         </div>
 
-        <div className="profile">
-          <CgProfile/>
-          {/*사원정보 db연결 */}
+        <div>
+          <div className="profile-content">
+            <CgProfile className="profile-icon" />
+            <div className="profile-text">
+              <p className="profile-name">{groupName}</p>
+              <p className="profile-name">{userName}</p>
+            </div>
+          </div>
         </div>
 
         <div className="shortcut">
           <span className="infor-letter">MyOffice</span> 
           <span className="infor-letter">MyTeam</span> 
-          <span className="infor-letter">LogOut</span> 
+          <span className="infor-letter" onClick={handleLogout}>LogOut</span> 
         </div>
       </div>
 

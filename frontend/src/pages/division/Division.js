@@ -40,11 +40,11 @@ const DivisionPage = () => {
         <div>
             {/* 시스템사업본부 박스를 컨테이너 밖으로 렌더링 */}
             {teamMember && (
-                <div key={teamMember.groupCode} className="member-link-container first-card">
+                <div key={teamMember.groupCode}>
                     <Link to={`/share2/${teamMember.leaderRoomId}`} className="member-link">
-                        <div className="member-card first-card">
+                        <div className="member-card1">
                             <h2>
-                                <SiMicrosoftteams />
+                                <SiMicrosoftteams /><span> </span>
                                 {teamMember.groupName}
                             </h2>
                             <p>Division</p>
@@ -56,14 +56,14 @@ const DivisionPage = () => {
             {/* 나머지 멤버를 organization-container 내부에 렌더링 */}
             <div className="organization-container">
                 {otherMembers.map(member => (
-                    <div key={member.groupCode} className="member-link-container other-cards">
+                    <div key={member.groupCode} className="member-link">
                         <Link to={`/team/${member.groupCode}`} className="member-link">
-                            <div className="member-card other-cards">
+                            <div className="member-card2">
                                 <h2>
-                                    <RiTeamLine />
+                                    <RiTeamLine /><span> </span>
                                     {member.groupName}
                                 </h2>
-                                <p>Team</p>
+                                {/* <p>Team</p> */}
                             </div>
                         </Link>
                     </div>
