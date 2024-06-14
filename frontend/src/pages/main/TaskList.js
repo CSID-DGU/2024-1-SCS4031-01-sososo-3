@@ -14,6 +14,7 @@ const TaskList = ({ selectedDate, roomId }) => {
   const { groupCode } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
+  const [isShareOpen, setIsShareOpen] = useState(false); // 팝업 상태 추가
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null); // 선택된 태스크 상태 추가
   const [selectedTasks, setSelectedTasks] = useState([]); // 체크된 태스크 상태 추가
@@ -55,6 +56,8 @@ const TaskList = ({ selectedDate, roomId }) => {
     setSelectedTask(null); // 선택된 태스크 초기화
   };
 
+  const openShare = () => setIsShareOpen(true); // 팝업 열기
+  const closeShare = () => setIsShareOpen(false); // 팝업 닫기
 
   const handleTaskSubmit = (newTask) => {
     setTasks([newTask, ...tasks]);
@@ -93,13 +96,99 @@ const TaskList = ({ selectedDate, roomId }) => {
     );
   };
 
+  const getLeaderRoomId = (roomId) => {
+    if (roomId >= 'R0001' && roomId <= 'R0006') {
+      return 'R0080';
+    } else if (roomId >= 'R0007' && roomId <= 'R0012') {
+      return 'R0081';
+    } else if (roomId >= 'R0013' && roomId <= 'R0018') {
+      return 'R0082';
+    } else if (roomId >= 'R0019' && roomId <= 'R0024') {
+      return 'R0083';
+    } else if (roomId >= 'R0025' && roomId <= 'R0030') {
+      return 'R0084';
+    } else if (roomId >= 'R0031' && roomId <= 'R0036') {
+      return 'R0085';
+    } else if (roomId >= 'R0037' && roomId <= 'R0042') {
+      return 'R0086';
+    } else if (roomId >= 'R0043' && roomId <= 'R0048') {
+      return 'R0087';
+    } else if (roomId >= 'R0049' && roomId <= 'R0054') {
+      return 'R0088';
+    } else if (roomId >= 'R0055' && roomId <= 'R0060') {
+      return 'R0089';
+    } else if (roomId >= 'R0061' && roomId <= 'R0066') {
+      return 'R0090';
+    } else if (roomId >= 'R0067' && roomId <= 'R0072') {
+      return 'R0091';
+    } else if (roomId >= 'R0073' && roomId <= 'R0078') {
+      return 'R0092';
+    }
+    return '';
+  };
 
-  // const formatDate = (date) => {
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, '0');
-  //   const day = String(date.getDate()).padStart(2, '0');
-  //   return `${year}.${month}.${day}`;
-  // };
+  const handleShareTasks = async () => {
+    const tasksToShare = selectedTasks.map(taskId => tasks.find(task => task.taskId === taskId));
+    const leaderRoomId = getLeaderRoomId(roomId);
+
+    try {
+      await Promise.all(tasksToShare.map(async (task) => {
+        const response = await fetch(`http://localhost:3001/api/share1/${leaderRoomId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(task)
+        });
+        if (!response.ok) {
+          throw new Error('Failed to share task');
+        }
+      }));
+      closeShare();
+      alert('Tasks shared successfully');
+    } catch (error) {
+      console.error('Failed to share tasks:', error);
+      alert('Failed to share tasks');
+    }
+  };
+
+  const getShareMessage = (roomId) => {
+    if (roomId >= 'R0001' && roomId <= 'R0006') {
+      return "행정팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0007' && roomId <= 'R0012') {
+      return "인사팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0013' && roomId <= 'R0018') {
+      return "시스템영업1팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0019' && roomId <= 'R0024') {
+      return "시스템영업2팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0025' && roomId <= 'R0030') {
+      return "공공영업1팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0031' && roomId <= 'R0036') {
+      return "공공영업2팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0037' && roomId <= 'R0042') {
+      return "기술지원팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0043' && roomId <= 'R0048') {
+      return "보안개발팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0049' && roomId <= 'R0054') {
+      return "SW개발1팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0055' && roomId <= 'R0060') {
+      return "SW개발2팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0061' && roomId <= 'R0066') {
+      return "사업기획팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0067' && roomId <= 'R0072') {
+      return "SM영업팀장 페이지로 공유하시겠습니까?";
+    } else if (roomId >= 'R0073' && roomId <= 'R0078') {
+      return "서비스센터팀장 페이지로 공유하시겠습니까?";
+    }
+    return "팀장 페이지로 공유하시겠습니까?";
+  };
+
+  const formatDate = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}.${month}.${day}`;
+  };
 
   const formatDate2 = (date) => {
     const d = new Date(date);
@@ -140,7 +229,7 @@ const TaskList = ({ selectedDate, roomId }) => {
         <div className="button-container">
           <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button>
           <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button>
-          <button className="share-button"><IoShareSocial/>공유</button>
+          <button className="share-button" onClick={openShare}><IoShareSocial/>공유</button>
           <button className="notshare-button"><GiCancel/>공유취소</button>
         </div>
       </div>
@@ -200,6 +289,22 @@ const TaskList = ({ selectedDate, roomId }) => {
           <TaskForm2 task={selectedTask} onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} groupCode={groupCode} />
         </div>
       )}
+
+      
+    {/* 공유 팝업 */}
+    {isShareOpen && (
+        <>
+          <div className="popup-overlay" />
+          <div className="popup">
+            <div className="popup-content">
+              <p>{getShareMessage(roomId)}</p>
+              <button onClick={handleShareTasks}>예</button>
+              <button onClick={closeShare}>아니오</button>
+            </div>
+          </div>
+        </>
+      )}
+
     </div>
 
     

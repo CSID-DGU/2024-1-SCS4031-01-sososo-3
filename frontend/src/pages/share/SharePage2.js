@@ -5,9 +5,10 @@ import ShareHeader from './ShareHeader';
 import ShareTaskList from './ShareTaskList';
 import ShareDate2 from './ShareDate2';
 
-const SharePage = () => {
+const SharePage2 = () => {
   const { leaderRoomId } = useParams();
   const [groupCode, setGroupCode] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     const fetchGroupCode = async () => {
@@ -32,10 +33,10 @@ const SharePage = () => {
   return (
     <div>
       <ShareHeader />
-      <ShareDate2 groupCode={groupCode}/>
-      <ShareTaskList />
+      <ShareDate2 onDateChange={setSelectedDate} groupCode={groupCode}/>
+      <ShareTaskList selectedDate={selectedDate} leaderRoomId={leaderRoomId} />
     </div>
   );
 }
 
-export default SharePage;
+export default SharePage2;
