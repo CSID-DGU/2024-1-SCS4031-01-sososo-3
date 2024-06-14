@@ -145,11 +145,8 @@ const getNextTaskId = async (roomId) => {
 // Task 데이터 생성
 router.post('/taskspost', upload.single('attachment'), async (req, res) => {
   const { taskTitle, taskDescription, taskAuthor, taskAssignee, status, startDate, endDate, roomId, groupCode } = req.body;
-
+  const taskId = await getNextTaskId(roomId);
   try {
-    const taskId = await getNextTaskId(roomId);
-    console.log('Received taskId:', taskId);
-
     const newTask = new Task({
       taskId,
       groupCode: groupCode || 'G0001',
@@ -158,14 +155,12 @@ router.post('/taskspost', upload.single('attachment'), async (req, res) => {
       taskAuthor,
       taskAssignee,
       status,
-      attachment: req.file ? req.file.path : null, // attachment 속성 추가
+      attachment: req.file ? req.file.path : null,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
       roomId
     });
-
     await newTask.save();
-    console.log('Task saved:', newTask);
     res.status(201).json({ message: 'Task 데이터 저장 성공', task: newTask });
   } catch (err) {
     console.error('Error saving task:', err.message, err.stack);
@@ -173,12 +168,13 @@ router.post('/taskspost', upload.single('attachment'), async (req, res) => {
   }
 });
 
+
 // 특정 roomId의 모든 Task 데이터 조회
 router.get('/tasks/:roomId', async (req, res) => {
   const { roomId } = req.params;
   try {
     const tasks = await Task.find({ roomId });
-    console.log('Tasks fetched:', tasks);
+    //console.log('GET 메소드 Tasks fetched:', tasks);
     res.json(tasks);
   } catch (err) {
     console.error('Error fetching tasks:', err.message, err.stack);
@@ -191,35 +187,29 @@ router.put('/tasks/:taskId', upload.single('attachment'), async (req, res) => {
   const { taskId } = req.params;
   const { taskTitle, taskDescription, taskAuthor, taskAssignee, status, startDate, endDate, roomId, groupCode } = req.body;
 
+  const updatedTask = {
+    taskTitle,
+    taskDescription,
+    taskAuthor,
+    taskAssignee,
+    status,
+    startDate: new Date(startDate),
+    endDate: new Date(endDate),
+    roomId,
+    groupCode
+  };
+
+  if (req.file) {
+    updatedTask.attachment = req.file.path;
+  }
+
   try {
-    const updateData = {
-      taskTitle,
-      taskDescription,
-      taskAuthor,
-      taskAssignee,
-      status,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      roomId,
-      groupCode
-    };
-
-    if (req.file) {
-      updateData.attachment = req.file.path;
-    }
-
-    const updatedTask = await Task.findOneAndUpdate(
+    const result = await Task.findOneAndUpdate(
       { taskId },
-      updateData,
+      updatedTask,
       { new: true }
     );
-
-    if (!updatedTask) {
-      return res.status(404).json({ error: 'Task not found' });
-    }
-
-    console.log('Task updated:', updatedTask);
-    res.json({ message: 'Task 데이터 수정 성공', task: updatedTask });
+    res.json({ message: 'Task 데이터 수정 성공', task: result });
   } catch (err) {
     console.error('Error updating task:', err.message, err.stack);
     res.status(500).json({ error: 'Task 데이터 수정 실패', details: err.message });
@@ -227,7 +217,6 @@ router.put('/tasks/:taskId', upload.single('attachment'), async (req, res) => {
 });
 
 // Task 데이터 삭제
-
 router.delete('/tasksdel/:taskId', async (req, res) => {
   const { taskId } = req.params;
 
@@ -239,10 +228,90 @@ router.delete('/tasksdel/:taskId', async (req, res) => {
     }
 
     console.log('Task deleted:', deletedTask);
-    res.json({ message: 'Task 데이터 삭제 성공', task: deletedTask });
+    res.json({ message: 'Task 삭제 성공', task: deletedTask });
   } catch (err) {
     console.error('Error deleting task:', err.message, err.stack);
-    res.status(500).json({ error: 'Task 데이터 삭제 실패', details: err.message });
+    res.status(500).json({ error: 'Task 삭제 실패', details: err.message });
+  }
+});
+
+// 팀장에게 태스크 공유
+router.post('/share1/:leaderRoomId', async (req, res) => {
+  const { leaderRoomId } = req.params;
+  const taskData = req.body;
+
+  try {
+    const sharedTask = new Task({
+      ...taskData,
+      roomId: leaderRoomId,
+      _id: undefined // 새로운 태스크로 생성하기 위해 _id 제거
+    });
+    await sharedTask.save();
+    console.log('Shared task saved:', sharedTask); // 로그 추가
+    res.status(201).json({ message: 'Task shared successfully', task: sharedTask });
+  } catch (error) {
+    console.error('Failed to share task:', error);
+    res.status(500).json({ error: 'Failed to share task' });
+  }
+});
+
+// 특정 roomId에서 특정 taskId를 가진 Task 데이터 삭제
+router.delete('/tasksdel/:roomId/:taskId', async (req, res) => {
+  const { roomId, taskId } = req.params;
+
+  try {
+    const deletedTask = await Task.findOneAndDelete({ roomId, taskId });
+
+    if (!deletedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    console.log('Task deleted from leader room:', deletedTask);
+    res.json({ message: 'Task 삭제 성공', task: deletedTask });
+  } catch (err) {
+    console.error('Error deleting task:', err.message, err.stack);
+    res.status(500).json({ error: 'Task 삭제 실패', details: err.message });
+  }
+});
+
+// 본부에게 태스크 공유
+router.post('/share2/:headquarterRoomId', async (req, res) => {
+  const { headquarterRoomId } = req.params;
+  const taskData = req.body;
+
+  try {
+    const sharedTask = new Task({
+      ...taskData,
+      roomId: headquarterRoomId,
+      _id: undefined // 새로운 태스크로 생성하기 위해 _id 제거
+    });
+    await sharedTask.save();
+    console.log('Shared task saved to headquarter:', sharedTask); // 로그 추가
+    res.status(201).json({ message: 'Task shared successfully to headquarter', task: sharedTask });
+  } catch (error) {
+    console.error('Failed to share task to headquarter:', error);
+    res.status(500).json({ error: 'Failed to share task to headquarter' });
+  }
+});
+
+
+// 대표이사 페이지에 태스크 공유
+router.post('/share3/:ceoRoomId', async (req, res) => {
+  const { ceoRoomId } = req.params;
+  const taskData = req.body;
+
+  try {
+    const sharedTask = new Task({
+      ...taskData,
+      roomId: ceoRoomId,
+      _id: undefined // 새로운 태스크로 생성하기 위해 _id 제거
+    });
+    await sharedTask.save();
+    console.log('Shared task saved:', sharedTask); // 로그 추가
+    res.status(201).json({ message: 'Task shared successfully', task: sharedTask });
+  } catch (error) {
+    console.error('Failed to share task:', error);
+    res.status(500).json({ error: 'Failed to share task' });
   }
 });
 
