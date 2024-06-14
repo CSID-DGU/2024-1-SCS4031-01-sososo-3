@@ -11,7 +11,7 @@ import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 
 const TaskList = ({ selectedDate, roomId }) => {
-  const { groupCode } = useContext(RoomContext);
+  const { groupCode, roomId: userRoomId } = useContext(RoomContext);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isFormOpen2, setIsFormOpen2] = useState(false);
   const [isShareOpen, setIsShareOpen] = useState(false); // 팝업 상태 추가
@@ -226,12 +226,14 @@ const TaskList = ({ selectedDate, roomId }) => {
 
       <div className='tasklist-container2'>
         <div className='letter' ></div>
+        {userRoomId === roomId && (
         <div className="button-container">
           <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button>
           <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button>
           <button className="share-button" onClick={openShare}><IoShareSocial/>공유</button>
           <button className="notshare-button"><GiCancel/>공유취소</button>
         </div>
+        )}
       </div>
       
       <div className='tasklist'>
