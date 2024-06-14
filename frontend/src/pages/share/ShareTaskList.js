@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 // import TaskForm from './TaskForm';
 import '../../App.css';
 import { MdDeleteOutline } from "react-icons/md";
@@ -8,8 +8,10 @@ import { FaRegSquareCheck } from "react-icons/fa6";
 import { MdOutlineAutoFixNormal } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import { RoomContext } from "../../RoomContext";
 
 const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
+  const { roomId: userRoomId } = useContext(RoomContext);
   const [tasks, setTasks] = useState([]);
   const [groupName, setGroupName] = useState('');
   const [selectedTasks, setSelectedTasks] = useState([]);
@@ -196,11 +198,13 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
           {groupName}
           <IoIosArrowForward/>
         </div>
+        {userRoomId === leaderRoomId && (
         <div className="button-container">
           <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button>
           <button className="share-button" onClick={() => setIsShareOpen(true)}><IoShareSocial/>공유</button>
           <button className="notshare-button" onClick={handleDeleteTask}><GiCancel/>공유취소</button>
         </div>
+        )}
       </div>
       
       <div className='tasklist2'>
