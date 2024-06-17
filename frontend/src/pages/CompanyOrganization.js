@@ -1,89 +1,78 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MdOutlineManageSearch } from "react-icons/md";
 import { IoIosArrowForward, IoIosArrowDown } from "react-icons/io";
 
-
 const CompanyOrganization = () => {
-  // 회사 조직도 데이터
   const navigate = useNavigate();
-
-  const [companyStructure, setCompanyStructure] = useState([
-    {
-      name: '대표이사',
-      children: [
-        {
-          name: '경영지원 본부',
-          children: [
-            { name: '행정팀', visible: false },
-            { name: '인사팀', visible: false }
-          ]
-        },
-        {
-          name: '시스템사업 본부',
-          children: [
-            { name: '시스템영업1팀', visible: false },
-            { name: '시스템영업2팀', visible: false },
-            { name: '공공영업1팀', visible: false },
-            { name: '공공영업2팀', visible: false },
-            { name: '기술지원팀', visible: false }
-          ]
-        },
-        {
-          name: '개발사업본부',
-          children: [
-            { name: '보안개발팀', visible: false },
-            { name: 'SW개발1팀', visible: false },
-            { name: 'SW개발2팀', visible: false }
-          ]
-        },
-        {
-          name: 'SM사업본부',
-          children: [
-            { name: '사업기획팀', visible: false },
-            { name: 'SM영업팀', visible: false },
-            { name: '서비스센터팀', visible: false }
-          ]
-        }
-      ]
-    }
-  ]);
-
-  
+  const [companyStructure, setCompanyStructure] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [groupData, setGroupData] = useState([]);
 
-  // const handleDirectorClick = () => {
-  //   navigate("/director");
-  // };
+  useEffect(() => {
+    const fetchGroupAndTeamData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/groupsget`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch group data');
+        }
+        const data = await response.json();
+        console.log('받아온 그룹 데이터:', data);
+        setGroupData(data);
 
-  // const handleDepartmentClick = (event) => {
-  //   event.stopPropagation(); 
-  //   navigate("/division");
-  // };
+        const structure = [
+          {
+            name: '대표이사',
+            children: data
+              .filter(group => group.groupLevel === '2') // 본부 레벨 필터
+              .map(group => ({
+                name: group.groupName,
+                groupCode: group.groupCode,
+                children: data
+                  .filter(team => team.groupLevel === '1' && team.parentGroupCode === group.groupCode) // 팀 레벨 필터
+                  .map(team => ({ name: team.groupName, groupCode: team.groupCode, visible: false }))
+              }))
+          }
+        ];
+        setCompanyStructure(structure);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+    fetchGroupAndTeamData();
+  }, []);
 
-  const handleDepartmentClick = (name) => {
-    navigate(`/${name.toLowerCase().replace(/\s/g, '-')}`);
+  const handleDepartmentClick = (groupCode, name) => {
+    if (name === '대표이사') {
+      navigate('/Director');
+    } else {
+      navigate(`/division/${groupCode}`);
+    }
   };
 
-  const toggleTeamList = (index) => {
+  const handleTeamClick = (groupCode, name) => {
+    navigate(`/team/${groupCode}`);
+  };
+
+  const toggleTeamList = (departmentIndex) => {
     const updatedCompanyStructure = [...companyStructure];
-    updatedCompanyStructure[0].children[index].children.forEach(team => {
+    updatedCompanyStructure[0].children[departmentIndex].children.forEach(team => {
       team.visible = !team.visible;
     });
     setCompanyStructure(updatedCompanyStructure);
   };
 
-  const renderDepartment = (department, index) => (
+  const renderDepartment = (department, departmentIndex) => (
     <div className="department" key={department.name}>
       <div className='department-header'>
-        <h3 onClick={() => toggleTeamList(index)}>
+        <h3 onClick={() => toggleTeamList(departmentIndex)}>
           <span className="arrow-icon">{department.children.some(team => team.visible) ? <IoIosArrowDown /> : <IoIosArrowForward />}</span>
         </h3>
-        <h3 onClick={() => handleDepartmentClick(department.name)} className="department-name">{department.name}</h3>
+        <h3 onClick={() => handleDepartmentClick(department.groupCode, department.name)} className="department-name">{department.name}</h3>
       </div>
       <ul style={{ display: department.children.some(team => team.visible) ? 'block' : 'none' }}>
         {department.children.map((child, teamIndex) => (
-          <li key={teamIndex} style={{ display: child.visible ? 'block' : 'none' }} onClick={() => handleDepartmentClick(child.name)} className="team-name">{child.name}</li>
+          <li key={teamIndex} style={{ display: child.visible ? 'block' : 'none' }} onClick={() => handleTeamClick(child.groupCode, child.name)} className="team-name">{child.name}</li>
         ))}
       </ul>
     </div>
@@ -115,40 +104,37 @@ const CompanyOrganization = () => {
   
     return filtered;
   };
-  
-  const filteredDepartments = searchTerm.trim() === '' ?
-    companyStructure[0].children :
-    filterDepartmentsAndTeams(companyStructure[0].children, searchTerm);
-  
 
+  const filteredDepartments = searchTerm.trim() === '' ?
+    companyStructure[0]?.children || [] :
+    filterDepartmentsAndTeams(companyStructure[0]?.children || [], searchTerm);
 
   return (
-  <div className='search'>  
-    <div className="company-organization">
-      <div className="search-container">
-        <MdOutlineManageSearch />
-        <input 
-          className="search-input"
-          type="text" 
-          placeholder="부서를 입력하세요." 
-          value={searchTerm} 
-          onChange={handleSearchChange} 
-        />
+    <div className='search'>  
+      <div className="company-organization">
+        <div className="search-container">
+          <MdOutlineManageSearch />
+          <input 
+            className="search-input"
+            type="text" 
+            placeholder="부서를 입력하세요." 
+            value={searchTerm} 
+            onChange={handleSearchChange} 
+          />
+        </div>
+        <div className="ceo">
+          <h3 className="ceo-header">
+            <IoIosArrowDown />
+            {companyStructure[0]?.name}
+          </h3>
+          <div className="departments">
+            {filteredDepartments.map((department, index) => (
+              renderDepartment(department, index)
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="ceo">
-        <h3 className="ceo-header">
-        <IoIosArrowDown />
-        {companyStructure[0].name}
-        </h3>
-      <div className="departments">
-      {filteredDepartments.map((department, index) => (
-      renderDepartment(department, index)
-    ))}
-  </div>
-</div>
     </div>
-
-  </div>
   );
 };
 
