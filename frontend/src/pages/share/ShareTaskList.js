@@ -9,6 +9,7 @@ import { MdOutlineAutoFixNormal } from "react-icons/md";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { RoomContext } from "../../RoomContext";
+import ShareTaskForm2 from "./ShareTaskForm2";
 
 const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
   const { roomId: userRoomId } = useContext(RoomContext);
@@ -16,6 +17,8 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
   const [groupName, setGroupName] = useState('');
   const [selectedTasks, setSelectedTasks] = useState([]);
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isFormOpen2, setIsFormOpen2] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null); // 선택된 태스크 상태 추가
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -65,6 +68,20 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
     }
   }, [groupCode]);
 
+  const openForm2 = (task) => {
+    setSelectedTask(task); // 선택된 태스크 설정
+    setIsFormOpen2(true);
+  };
+
+  const closeForm2 = () => {
+    setIsFormOpen2(false);
+    // setSelectedTask(null);
+  };
+
+  const handleTaskSubmit2 = (updatedTask) => {
+    setTasks(tasks.map(task => task.taskId === updatedTask.taskId ? updatedTask : task));
+    closeForm2();
+  };
 
   const handleDeleteTask = async () => {
     const tasksToDelete = selectedTasks;
@@ -237,7 +254,7 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
         {filteredTasks.map((task, index) => (
         <div key={task.taskId}>
           <div className="task-info">
-            <MdOutlineAutoFixNormal/>
+            <MdOutlineAutoFixNormal onClick={() => openForm2(task)}/>
             <div className='letter'>{index + 1}</div>
               <div className='left-content2'><div className='letter'>{task.taskTitle}</div></div>
               <div className={`center-content3-1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
@@ -262,6 +279,12 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
       
       </div>
     </div>
+
+    {isFormOpen2 && selectedTask && (
+        <div className="mini-page">
+          <ShareTaskForm2 task={selectedTask} onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={leaderRoomId} groupCode={groupCode} />
+        </div>
+      )}
 
     {isShareOpen && (
         <>
