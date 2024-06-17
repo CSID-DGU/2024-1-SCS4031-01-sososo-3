@@ -18,6 +18,7 @@ const TaskList = ({ selectedDate, roomId }) => {
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null); // 선택된 태스크 상태 추가
   const [selectedTasks, setSelectedTasks] = useState([]); // 체크된 태스크 상태 추가
+  const [userName, setUserName] = useState('');
   //const roomId = 'R001'; // 기본 roomId 설정
 
   useEffect(() => { // 페이지 로드 시 태스크 목록을 받아오는 useEffect 추가
@@ -36,6 +37,29 @@ const TaskList = ({ selectedDate, roomId }) => {
     };
 
     fetchTasks();
+  }, [roomId]);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/usersget`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch users');
+        }
+        const users = await response.json();
+        const user = users.find(user => user.roomId === roomId);
+        if (user) {
+          setUserName(user.name);
+        } else {
+          setUserName(''); // Handle case where user with roomId is not found
+        }
+      } catch (error) {
+        console.error('Failed to fetch users:', error);
+        setUserName(''); // Handle error case, reset userName state or show default value
+      }
+    };
+
+    fetchUserData();
   }, [roomId]);
 
   const openForm = () => {
@@ -226,6 +250,11 @@ const TaskList = ({ selectedDate, roomId }) => {
 
       <div className='tasklist-container2'>
         <div className='letter' ></div>
+        <div className="teamname">
+          {/* <IoIosArrowBack/> */}
+          {userName}
+          {/* <IoIosArrowForward/> */}
+        </div>
         {userRoomId === roomId && (
         <div className="button-container">
           <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button>
