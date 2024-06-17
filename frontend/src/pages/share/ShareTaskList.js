@@ -49,6 +49,7 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
             throw new Error('Failed to fetch group data');
           }
           const data = await response.json();
+          console.log('받아온 그룹 데이터:', data);
           const currentTeam = data.find(group => group.groupCode === groupCode);
           if (currentTeam) {
             setGroupName(currentTeam.groupName);
@@ -59,8 +60,11 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
         console.error('Failed to fetch data:', error);
       }
     };
-    fetchTeamData();
-  }, []);
+    if (groupCode) {
+      fetchTeamData();
+    }
+  }, [groupCode]);
+
 
   const handleDeleteTask = async () => {
     const tasksToDelete = selectedTasks;
@@ -231,7 +235,7 @@ const ShareTaskList = ({selectedDate, groupCode, leaderRoomId}) => {
         </div>
 
         {filteredTasks.map((task, index) => (
-        <div key={task.id}>
+        <div key={task.taskId}>
           <div className="task-info">
             <MdOutlineAutoFixNormal/>
             <div className='letter'>{index + 1}</div>

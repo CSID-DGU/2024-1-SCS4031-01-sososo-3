@@ -34,7 +34,7 @@ const SharePage2 = () => {
     <div>
       <ShareHeader />
       <ShareDate2 onDateChange={setSelectedDate} groupCode={groupCode}/>
-      <ShareTaskList selectedDate={selectedDate} leaderRoomId={leaderRoomId} />
+      <ShareTaskList selectedDate={selectedDate} groupCode={groupCode} leaderRoomId={leaderRoomId} />
     </div>
   );
 }
