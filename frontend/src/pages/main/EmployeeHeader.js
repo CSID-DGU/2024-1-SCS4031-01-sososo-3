@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TfiMenu } from "react-icons/tfi";
 import { SlOrganization } from "react-icons/sl";
 import { IoCloseCircleSharp } from "react-icons/io5";
@@ -11,6 +12,10 @@ export const EmployeeHeader = () => {
   const [showMyinforSlide, setShowMyinforSlide] = useState(false); // 내정보 슬라이드
   const [userName, setUserName] = useState('');
   const [groupName, setGroupName] = useState('');
+  const [userRoomId, setUserRoomId] = useState('');
+  const [leaderRoomId, setLeaderRoomId] = useState(''); // leaderRoomId 추가
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -19,6 +24,7 @@ export const EmployeeHeader = () => {
         const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
         if (loggedInUser && loggedInUser.name && loggedInUser.groupCode) {
           setUserName(loggedInUser.name);
+          setUserRoomId(loggedInUser.roomId);
 
           // 그룹 데이터 가져오기
           const response = await fetch(`http://localhost:3001/api/groupsget`);
@@ -31,6 +37,7 @@ export const EmployeeHeader = () => {
           const currentTeam = data.find(group => group.groupCode === loggedInUser.groupCode);
           if (currentTeam) {
             setGroupName(currentTeam.groupName);
+            setLeaderRoomId(currentTeam.leaderRoomId); // leaderRoomId 설정
           } else {
             throw new Error('Group not found');
           }
@@ -61,6 +68,17 @@ export const EmployeeHeader = () => {
     window.location.href = "/login";
   }
 
+  const handleMyOfficeClick = () => {
+    if (userRoomId) {
+      navigate(`/${userRoomId}`); // 사용자의 룸번호로 이동
+    }
+  }
+
+  const handleMyTeamClick = () => {
+    if (leaderRoomId) {
+      navigate(`/share1/${leaderRoomId}`); // 리더의 룸번호로 이동
+    }
+  }
 
   return (
     <div className="employee-header">
@@ -100,9 +118,9 @@ export const EmployeeHeader = () => {
         </div>
 
         <div className="shortcut">
-        <button className="infor-letter" >MyOffice</button>
-        <button className="infor-letter">MyTeam</button>
-        <button className="infor-letter" onClick={handleLogout}>LogOut</button> {/* 로그아웃 버튼 추가 */}
+          <button className="infor-letter" onClick={handleMyOfficeClick}>MyOffice</button>
+          <button className="infor-letter" onClick={handleMyTeamClick}>MyTeam</button>
+          <button className="infor-letter" onClick={handleLogout}>LogOut</button> {/* 로그아웃 버튼 추가 */}
         </div>
       </div>
 
@@ -117,8 +135,6 @@ export const EmployeeHeader = () => {
         <CompanyOrganization/>{/* 조직도 콘텐츠 */}
         </div>
       </div>
-      
-
     </div>
   );
 }
