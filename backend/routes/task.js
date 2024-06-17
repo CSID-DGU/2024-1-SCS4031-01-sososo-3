@@ -315,4 +315,23 @@ router.post('/share3/:ceoRoomId', async (req, res) => {
   }
 });
 
+// 특정 roomId에서 특정 taskId를 가진 Task 데이터 삭제 (공유 취소)
+router.post('/unshare/:roomId/:taskId', async (req, res) => {
+  const { roomId, taskId } = req.params;
+
+  try {
+    const deletedTask = await Task.findOneAndDelete({ roomId, taskId });
+
+    if (!deletedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    console.log('Task unshared from room:', deletedTask);
+    res.json({ message: 'Task 공유 취소 성공', task: deletedTask });
+  } catch (err) {
+    console.error('Error unsharing task:', err.message, err.stack);
+    res.status(500).json({ error: 'Task 공유 취소 실패', details: err.message });
+  }
+});
+
 module.exports = router;

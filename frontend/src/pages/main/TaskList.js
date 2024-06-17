@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import { RoomContext } from "../../RoomContext";
 import TaskForm from './TaskForm';
@@ -113,7 +114,7 @@ const TaskList = ({ selectedDate, roomId }) => {
   };
 
   const handleCheckboxChange = (id) => {
-    setSelectedTasks(prevSelected => 
+    setSelectedTasks(prevSelected =>
       prevSelected.includes(id)
         ? prevSelected.filter(taskId => taskId !== id)
         : [...prevSelected, id]
@@ -173,6 +174,28 @@ const TaskList = ({ selectedDate, roomId }) => {
     } catch (error) {
       console.error('Failed to share tasks:', error);
       alert('Failed to share tasks');
+    }
+  };
+
+  const handleUnshareTasks = async () => {
+    const tasksToUnshare = selectedTasks;
+    const leaderRoomId = getLeaderRoomId(roomId);
+
+    try {
+      await Promise.all(tasksToUnshare.map(async (taskId) => {
+        const response = await fetch(`http://localhost:3001/api/unshare/${leaderRoomId}/${taskId}`, {
+          method: 'POST'
+        });
+        if (!response.ok) {
+          throw new Error('Failed to unshare task');
+        }
+      }));
+      setTasks(tasks.filter(task => !selectedTasks.includes(task.taskId)));
+      setSelectedTasks([]);
+      alert('Tasks unshared successfully');
+    } catch (error) {
+      console.error('Failed to unshare tasks:', error);
+      alert('Failed to unshare tasks');
     }
   };
 
@@ -244,23 +267,20 @@ const TaskList = ({ selectedDate, roomId }) => {
     return taskDate >= startOfWeek && taskDate <= endOfWeek;
   });
 
-
   return (
     <div className='tasklist-container'>
 
       <div className='tasklist-container2'>
         <div className='letter' ></div>
         <div className="teamname">
-          {/* <IoIosArrowBack/> */}
           {userName}
-          {/* <IoIosArrowForward/> */}
         </div>
         {userRoomId === roomId && (
         <div className="button-container">
           <button className="add-button" onClick={openForm}><IoIosAdd/>추가</button>
           <button className="delete-button" onClick={handleDeleteTask}><MdDeleteOutline/>삭제</button>
           <button className="share-button" onClick={openShare}><IoShareSocial/>공유</button>
-          <button className="notshare-button"><GiCancel/>공유취소</button>
+          <button className="notshare-button" onClick={handleUnshareTasks}><GiCancel/>공유취소</button>
         </div>
         )}
       </div>
@@ -277,53 +297,50 @@ const TaskList = ({ selectedDate, roomId }) => {
           <div className='center-content2'> 
             <div className='letter'>기간</div>
           </div>
-          {/* <div className='right-content1'> 
-            <div className='letter'>작성일</div>
-          </div> */}
           <div className='right-content2'>
             <FaRegSquareCheck/>
           </div>  
         </div>
 
         {filteredTasks.map((task, index) => (
-        <div key={task.taskId}>
-          <div className="task-info">
-            <MdOutlineAutoFixNormal onClick={() => openForm2(task)}/>
-            <div className='letter'>{index + 1}</div>
-              <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
-              <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
-              <div className='center-content2'><div className='letter'>{formatDate2(task.startDate)} ~ {formatDate2(task.endDate)}</div></div>
-            {/* <div className='right-content1'> */}
-              {/* <div className='letter'>{formatDate(new Date())}</div> */}
-            {/* </div> */}
-            <div className="right-content2">
-              <input
-                type="checkbox"
-                checked={selectedTasks.includes(task.taskId)}
-                onChange={() => handleCheckboxChange(task.taskId)}
-              />
-            </div>
+        <div key={task.taskId} className={`task-info ${task.shared ? 'shared-task' : ''}`}>
+          <MdOutlineAutoFixNormal onClick={() => openForm2(task)}/>
+          <div className='letter'>{index + 1}</div>
+          <div className='left-content'><div className='letter'>{task.taskTitle}</div></div>
+          <div className={`center-content1 ${getStatusColor(task.status)}`}><div className='letter'>{task.status}</div></div>
+          <div className='center-content2'><div className='letter'>{formatDate2(task.startDate)} ~ {formatDate2(task.endDate)}</div></div>
+          <div className='right-content5'>
+            <div className='letter'>{formatDate(new Date())}</div>
+          </div>
+          <div className="right-content3">
+            <div className='letter'>{task.taskAuthor}</div>
+          </div>
+          <div className="right-content4">
+            <input
+              type="checkbox"
+              checked={selectedTasks.includes(task.taskId)}
+              onChange={() => handleCheckboxChange(task.taskId)}
+            />
           </div>
         </div>
       ))}
-
-      
+        
       </div>
 
-    {isFormOpen && (
+      {isFormOpen && (
         <div className="mini-page">
           <TaskForm onTaskSubmit={handleTaskSubmit} onClose={closeForm} roomId={roomId} groupCode={groupCode}  />
         </div>
       )}
-    {isFormOpen2 && selectedTask && (
+      {isFormOpen2 && selectedTask && (
         <div className="mini-page">
           <TaskForm2 task={selectedTask} onTaskSubmit={handleTaskSubmit2} onClose={closeForm2} roomId={roomId} groupCode={groupCode} />
         </div>
       )}
 
       
-    {/* 공유 팝업 */}
-    {isShareOpen && (
+      {/* 공유 팝업 */}
+      {isShareOpen && (
         <>
           <div className="popup-overlay" />
           <div className="popup">
@@ -337,8 +354,6 @@ const TaskList = ({ selectedDate, roomId }) => {
       )}
 
     </div>
-
-    
   );
 };
 

@@ -1171,3 +1171,7 @@ body {
 .share-popup button {
   margin-right: 10px;
 }
+
+.task-info.shared-task .letter {
+  color: #BED7FF;
+}
