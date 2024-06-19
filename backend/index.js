@@ -1,4 +1,5 @@
 const express = require('express'); // express 임포트
+const path = require('path'); // path 모듈 임포트
 const app = express(); // app 생성
 const cors = require("cors")
 
@@ -20,9 +21,12 @@ app.get('/', (req, res) => {
   res.send('Backend Server is running');
 });
 
-// /main 경로 정의 추가
+// 정적 파일 제공 설정
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// /main 경로 정의
 app.get('/main', (req, res) => {
-  res.send('This is the main page');
+  res.sendFile(path.join(__dirname, '../frontend', 'main.html'));
 });
 
 app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
@@ -47,7 +51,7 @@ mongoose
  
     }
   )
-  .then(() => console.log('MongoDB conected'))
+  .then(() => console.log('MongoDB connected'))
   .catch((err) => {
     console.log("connected error");
     console.log(err);
