@@ -19,8 +19,13 @@ app.use(cors())
 app.get('/', (req, res) => {
   res.send('Backend Server is running');
 });
-app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
 
+// /main 경로 정의 추가
+app.get('/main', (req, res) => {
+  res.send('This is the main page');
+});
+
+app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
 
 //라우팅
 const memberRouter = require('./routes/member'); //member라우터 가져오기
@@ -48,8 +53,7 @@ mongoose
     console.log(err);
   });
 
-
-  // 로그인 엔드포인트
+// 로그인 엔드포인트
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -76,4 +80,3 @@ app.post('/login', (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 });
-
