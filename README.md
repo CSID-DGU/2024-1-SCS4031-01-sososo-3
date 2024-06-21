@@ -8,8 +8,24 @@
 • 회사 조직도를 기반으로 구성된 웹사이트를 통해 상위 조직 및 팀원 간 업무 공유 
 <br></br>
 
+## 03. SITE MAP
+<p align="center">
+<img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/db1ae6ae-6801-419f-b067-4f6811817faa">
+<br></br>
 
-## 03. 페이지 UI UX
+## 04. 주요 기능
+• 서버에 데이터가 있는 사용자만 로그인
+<br></br>
+• 조직도에 따라 개인 room - 팀 room - 본부 room - 대표 room 생성
+<br></br>
+• 사용자의 개인 room에 업무 작성, 수정 및 삭제
+<br></br>
+• 주차별 업무 확인
+<br></br>
+• 상위 room으로 업무 공유
+<br></br>
+
+## 05. 페이지 UI UX
 <p align="center">
  <로그인 페이지>
   <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/d3385acb-e872-46ed-89ed-f83c97f33401">
@@ -62,27 +78,12 @@
 </p>
 <br></br>
 
-## 04. 주요 기능
-• 서버에 데이터가 있는 사용자만 로그인
-<br></br>
-• 조직도에 따라 개인 room - 팀 room - 본부 room - 대표 room 생성
-<br></br>
-• 사용자의 개인 room에 업무 작성, 수정 및 삭제
-<br></br>
-• 주차별 업무 확인
-<br></br>
-• 상위 room으로 업무 공유
+
+## 06. 시연영상
+https://www.youtube.com/watch?v=nKXQuNxQHN8
 <br></br>
 
-
-
-## 05. SITE MAP
-<p align="center">
-<img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/db1ae6ae-6801-419f-b067-4f6811817faa">
-
-<br></br>
-
-## 06. 기술 스택
+## 07. 기술 스택
 <div align=center> 
 
 
@@ -94,16 +95,14 @@
 <br>
 <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=mongoDB&logoColor=white">
 <img src="https://img.shields.io/badge/mongoose-F04D35?style=for-the-badge&logo=mongoose&logoColor=white">
-
-
-</div>
 <br />
-시스템 아키텍쳐
-<img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/381462f8-96a5-4c9a-acb8-a108c4483a23">
 
+<시스템 아키텍쳐>
+<img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/381462f8-96a5-4c9a-acb8-a108c4483a23">
+</div>
 <br/>
 
-## 07. 팀원 소개
+## 08. 팀원 소개
 
 |이름|역할|Github|
 |-----|-----|-----|
