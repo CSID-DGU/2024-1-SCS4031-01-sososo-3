@@ -96,6 +96,7 @@ https://www.youtube.com/watch?v=nKXQuNxQHN8
 <img src="https://img.shields.io/badge/mongoDB-47A248?style=for-the-badge&logo=mongoDB&logoColor=white">
 <img src="https://img.shields.io/badge/mongoose-F04D35?style=for-the-badge&logo=mongoose&logoColor=white">
 <br />
+<br></br>
 
 <시스템 아키텍쳐>
 <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/381462f8-96a5-4c9a-acb8-a108c4483a23">
