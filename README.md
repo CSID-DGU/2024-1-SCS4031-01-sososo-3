@@ -11,36 +11,67 @@
 <br></br>
 
 ## 03. 페이지 UI UX
-• 로그인 페이지
+
 <p align="center">
+ 로그인 페이지
   <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/d3385acb-e872-46ed-89ed-f83c97f33401">
 </p>
 <br></br>
-• 사원 페이지
+<p align="center">
+ 사원 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/a396099e-00eb-4ac7-a20d-7b5795f6cd15">
+</p>
 <br></br>
-• 업무 작성 페이지
+<p align="center">
+ 업무 작성 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/8b3e40d9-c6b2-4ece-bef6-4d4245f83b10">
+</p>
 <br></br>
-• 내 정보 및 조직 검색 페이지
+<p align="center">
+ 내 정보 및 조직 검색 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/3d92eb34-0aee-4688-a832-eae2237bdb48">
+</p>
 <br></br>
-• 팀 페이지
+<p align="center">
+ 팀 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/cabf6dd3-37bb-4e80-9ca1-da0b717f2ae2">
+</p>
 <br></br>
-• 본부 페이지
+<p align="center">
+ 본부 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/183fdd22-a81c-4bcb-91f5-52cc1fef0cee">
+</p>
 <br></br>
-• 대표이사 페이지
+<p align="center">
+ 대표이사 페이지
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/f9c1760a-360a-4bca-87e1-fee524d90fb4">
+</p>
 <br></br>
-• 팀장 페이지 - 공유된 업무 출력
+<p align="center">
+ 업무 공유 결과
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/8e07a1d4-ecc4-4504-b1c9-77d4af386ab0">
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/be154f50-300b-4a13-82f0-8274835141d4">
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/c8b4753a-205f-460e-bb0e-e398f3946a96">
+</p>
 <br></br>
 
 ## 04. 주요 기능
-• 
+• 서버에 데이터가 있는 사용자만 로그인
 <br></br>
-• 
+• 조직도에 따라 개인 room - 팀 room - 본부 room - 대표 room 생성
+<br></br>
+• 사용자의 개인 room에 업무 작성, 수정 및 삭제
+<br></br>
+• 주차별 업무 확인
+<br></br>
+• 상위 room으로 업무 공유
 <br></br>
 
-<br></br>
 
-## 05. 플로우 차트
 
+## 05. SITE MAP
+<p align="center">
+<"img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/db1ae6ae-6801-419f-b067-4f6811817faa">
 
 <br></br>
 
@@ -60,6 +91,9 @@
 
 </div>
 <br />
+시스템 아키텍쳐
+<"img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/381462f8-96a5-4c9a-acb8-a108c4483a23">
+
 <br/>
 
 ## 07. 팀원 소개
