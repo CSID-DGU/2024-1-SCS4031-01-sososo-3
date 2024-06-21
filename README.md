@@ -80,7 +80,7 @@
 
 
 ## 06. 시연영상
-https://www.youtube.com/watch?v=nKXQuNxQHN8
+https://youtu.be/CfYuD8NB2FY
 <br></br>
 
 ## 07. 기술 스택
