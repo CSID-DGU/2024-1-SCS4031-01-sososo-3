@@ -12,6 +12,9 @@
 
 ## 03. 페이지 UI UX
 • 로그인 페이지
+<p align="center">
+  <img src="https://github.com/CSID-DGU/2024-1-SCS4031-01-sososo-3/assets/127373963/d3385acb-e872-46ed-89ed-f83c97f33401">
+</p>
 <br></br>
 • 사원 페이지
 <br></br>
